@@ -11,6 +11,8 @@ and open the template in the editor.
 .banner {
     width: 100%;
     height: 225px;
+    padding:0;
+    margin:0;
 }
 
 ul {
@@ -52,13 +54,24 @@ li a:hover:not(.active) {
 html { height: 100% }
 ::-moz-selection { background: #fe57a1; color: #fff; text-shadow: none; }
 ::selection { background: #fe57a1; color: #fff; text-shadow: none; }
-body { background-image: radial-gradient( cover, rgba(92,100,111,1) 0%,rgba(31,35,40,1) 100%), url('http://i.minus.com/io97fW9I0NqJq.png') }
+
+body {     
+    padding:0;
+    margin:0;
+}
+
+header {
+    padding:0;
+    margin:0;
+}
+
 .login {
   background: #eceeee;
   border: 1px solid #42464b;
   border-radius: 6px;
   height: 257px;
-  margin: 20px auto 0;
+  margin: 0;
+  padding: 0;
   width: 298px;
 }
 .login h1 {
@@ -70,8 +83,8 @@ body { background-image: radial-gradient( cover, rgba(92,100,111,1) 0%,rgba(31,3
   display: block;
   height: 43px;
   font: 600 14px/1 'Open Sans', sans-serif;
-  padding-top: 14px;
   margin: 0;
+  padding: 0;
   text-align: center;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
 }
@@ -160,7 +173,8 @@ input[type="submit"]:active {
   box-shadow: inset 0px 1px 0px #2ab7ec, 0px 2px 0px 0px #31524d, 0px 5px 3px #999;
 }
 
-<!-- Create Account Styling -->
+/* Create Account Styling */
+/*
 .createaccount {
   background: #eceeee;
   border: 1px solid #42464b;
@@ -261,4 +275,4 @@ input[type="submit"] {
   border-bottom-right-radius: 5px;
   border-bottom-left-radius:5px;
   box-shadow: inset 0px 1px 0px #2ab7ec, 0px 5px 0px 0px #497a78, 0px 10px 5px #999;
-}
+} */
