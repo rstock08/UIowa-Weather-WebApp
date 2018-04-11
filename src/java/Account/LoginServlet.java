@@ -1,6 +1,10 @@
+/*
+ * Author: Reed Stock
+ * Date: 4/11/2018
+ * Description: Servlet used to verify user login data with database.
+*/
+
 package Account;
-
-
 
 import java.io.*;
 import javax.servlet.http.*;

@@ -1,11 +1,10 @@
-package Account;
-
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ * Author: Reed Stock
+ * Date: 4/11/2018
+ * Description: Servlet used to update database with new user. (Registration servlet).
+*/
 
+package Account;
 
 import java.io.*;
 import static java.lang.System.out;

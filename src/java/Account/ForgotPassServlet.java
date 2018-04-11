@@ -1,86 +1,57 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+ * Author: Reed Stock
+ * Date: 4/11/2018
+ * Description: Servlet used to update database with randomized password and then using
+ * SendEmail servlet an email with the new password is sent to the user.
+*/
+
 package Account;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
+import Email.*;
+import java.io.*;
+import static java.lang.System.out;
+import javax.servlet.http.*;
+import javax.servlet.*;
+import java.sql.*;
+ 
 /**
- *
- * @author ReedS
+ * Servlet implementation class LoginServlet
  */
+ 
 public class ForgotPassServlet extends HttpServlet {
+        
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ForgotPassServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ForgotPassServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        // Collect parameters from html login form
+        String email=request.getParameter("email");
+        String password="temporary, make function for random password.";
+
+        // Try to connect to DB
+        try {
+        Class.forName("com.mysql.jdbc.Driver");
+        // loads driver
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
+        PreparedStatement ps = c.prepareStatement("insert into login values (?,?)");
+        ps.setString(1, email);
+        //ps.setString(2, password);
+        ResultSet rs = ps.executeQuery();
+
+        int i=ps.executeUpdate();  
+        if(i>0)  {
+        out.print("Password reset email sending...");
+
+        // Call class SendEmail to send email with new password
+        new SendEmail(email, password);
+
+        response.sendRedirect("index.html");
         }
-    }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
+        }catch (Exception e2) {
+            out.println(e2);  
+            //response.sendRedirect("createaccount.html");
+            }
+        out.close();
     }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }
