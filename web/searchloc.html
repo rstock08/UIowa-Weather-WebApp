@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style>      
+table, th, td{
+    padding: 12px;
+    border: 1px solid black;
+}
+nav {
+    padding-left: 15px;
+    padding-bottom: 15px;
+    color: white;
+    background-color: #333;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #FFF;
+  padding: 10px;
+}
+.weather-container {
+  border-style: solid;
+  border-width: 1px;
+  display: grid;
+  grid-template-columns: auto auto;
+  background-color: #FFF;
+  padding: 10px;
+}
+.item1{
+    grid-row: 1 / 7;
+    padding-right: 10px;
+}
+.dropbtn {
+    display: inline-block;
+    float: right;
+    font: 12px/1 sans-serif;
+    position: relative;
+    text-decoration: none;
+    top: 5px;
+    transition: color .4s;
+    background-color: #37a69b;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+.dropdown {
+    float: right;
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content a:hover {background-color: #ddd}
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+.dropdown:hover .dropbtn {
+    background-color: #37a69b;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Location</title>
+    <link rel='stylesheet' href='css/style.css'>
+</head>
+
+<body>
+    <header>
+        <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
+    </header>
+    
+    <ul>
+        <li><a href="index.html">Home</a></li>
+        <li style="float:right"><a class="active" href="account.html">Account</a></li>
+        <li style="float:right"><a class="active" href="login.html">Login</a></li>
+    </ul>
+    
+    <nav>
+        <a>Date</a>
+        <input type="text" placeholder="Search Location..">
+    
+        <div class="dropdown">
+            <button style="float:right" class="dropbtn">Saved Locations</button>             
+            <div class="dropdown-content">
+                <a href="#">Location 1</a>
+                <a href="#">Location 2</a>
+                <a href="#">Location 3</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="grid-container">
+        <div class="grid-item">
+        <div class="weather-container">
+            <div class="item1">
+                <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
+            </div>
+            <div class="item2">            
+                <a>Current Weather (Time/Location)</a>
+            </div>
+            <div class="item3"> 
+                <a>Temperature</a>            
+            </div>
+            <div class="item4">             
+                <a>Humidity</a>
+            </div>
+            <div class="item5">             
+                <a>Feels Like</a>
+            </div>
+            <div class="item6">             
+                <a>Wind</a>
+            </div>
+            <div class="item7">             
+                <a>Pressure</a>
+            </div>
+        </div>
+        </div>
+  
+        <div class="grid-item">
+        <table>
+            <tr>
+                <th>Hourly</th>
+                <th>Temperature</th>            
+                <th>Humidity</th>
+                <th>Feels Like</th>
+                <th>Wind</th>
+                <th>Pressure</th>
+            </tr>
+            <tr>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+            </tr>
+            <tr>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+                <td>null</td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</body>
+</html>
