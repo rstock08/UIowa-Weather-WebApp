@@ -9,73 +9,161 @@ and open the template in the editor.
 <html lang="en">
 <head>
 <style>      
-table, th, td{
-    padding: 12px;
-    border: 1px solid black;
+    table, th, td{
+        padding: 12px;
+        border: 1px solid black;
+    }
+    nav {
+        padding-left: 15px;
+        padding-bottom: 15px;
+        color: white;
+        background-color: #333;
+    }
+    .grid-container {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        background-color: #FFF;
+        padding: 10px;
+    }
+    .weather-container {
+        border-style: solid;
+        border-width: 1px;
+        display: grid;
+        grid-template-columns: auto auto;
+        background-color: #FFF;
+        padding: 10px;
+    }
+    .item1{
+        grid-row: 1 / 7;
+        padding-right: 10px;
+    }
+    .dropbtn {
+        display: inline-block;
+        float: right;
+        font: 12px/1 sans-serif;
+        text-decoration: none;
+        top: 5px;
+        transition: color .4s;
+        background-color: #37a69b;
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+        border: none;
+    }
+    .dropdown {
+        float: right;
+        display: inline-block;
+    }
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 1;
+    }
+    .dropdown-content a {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+    }
+    .dropdown-content a:hover {background-color: #ddd}
+    .dropdown:hover .dropdown-content {
+        display: block;
+    }
+    .dropdown:hover .dropbtn {
+        background-color: #37a69b;
+    }
+    #hourly {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    #hourly td, #hourly th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+    #hourly tr:nth-child(even){background-color: #f2f2f2;}
+    #hourly tr:hover {background-color: #ddd;}
+    #hourly th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: #37a69b;
+        color: white;
+    }
+    #summary {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+.topnav {
+  overflow: hidden;
+  background-color: #e9e9e9;
 }
-nav {
-    padding-left: 15px;
-    padding-bottom: 15px;
-    color: white;
-    background-color: #333;
+
+.topnav a {
+  float: left;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto;
-  background-color: #FFF;
-  padding: 10px;
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
 }
-.weather-container {
-  border-style: solid;
-  border-width: 1px;
-  display: grid;
-  grid-template-columns: auto auto;
-  background-color: #FFF;
-  padding: 10px;
+
+.topnav a.active {
+  background-color: #37a69b;
+  color: white;
 }
-.item1{
-    grid-row: 1 / 7;
-    padding-right: 10px;
+
+.topnav .search-container {
+  float: right;
 }
-.dropbtn {
-    display: inline-block;
-    float: right;
-    font: 12px/1 sans-serif;
-    position: relative;
-    text-decoration: none;
-    top: 5px;
-    transition: color .4s;
-    background-color: #37a69b;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
+
+.topnav input[type=text] {
+  padding: 6px;
+  margin-top: 8px;
+  font-size: 17px;
+  border: none;
 }
-.dropdown {
-    float: right;
-    position: relative;
-    display: inline-block;
+
+.topnav .search-container button {
+  float: right;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  background: #ddd;
+  font-size: 17px;
+  border: none;
+  cursor: pointer;
 }
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 1;
+
+.topnav .search-container button:hover {
+  background: #ccc;
 }
-.dropdown-content a {
-    color: black;
-    padding: 12px 16px;
-    text-decoration: none;
+
+@media screen and (max-width: 600px) {
+  .topnav .search-container {
+    float: none;
+  }
+  .topnav a, .topnav input[type=text], .topnav .search-container button {
+    float: none;
     display: block;
-}
-.dropdown-content a:hover {background-color: #ddd}
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-.dropdown:hover .dropbtn {
-    background-color: #37a69b;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .topnav input[type=text] {
+    border: 1px solid #ccc;  
+  }
 }
 </style>
 <script>
@@ -106,11 +194,12 @@ nav {
         <li style="float:right"><a class="active" href="login.html">Login</a></li>
     </ul>
     
-    <nav>
+    <div class="topnav">
         <a>Date</a>
-        <input id="locationEntry" type="text" placeholder="Search Location..">
-        <button onclick="onButtonClick()">Search</button>
-    
+        <div class="search-container">
+            <input id="locationEntry" type="text" placeholder="Search Location.." name="search">
+            <button onclick="onButtonClick()">Search</button>
+        </div>
         <div class="dropdown">
             <button style="float:right" class="dropbtn">Saved Locations</button>             
             <div class="dropdown-content">
@@ -120,9 +209,9 @@ nav {
                 <a class="active" href="locmanagement.html">EDIT</a>
             </div>
         </div>
-    </nav>
+    </div>
     
-    <div class="grid-container">
+    <div class="grid-container" id="summary">
         <div class="grid-item">
         <div class="weather-container">
             <div class="item1">
@@ -150,7 +239,7 @@ nav {
         </div>
   
         <div class="grid-item">
-        <table>
+        <table id="hourly">
             <tr>
                 <th>Hourly</th>
                 <th>Temperature</th>            
@@ -160,7 +249,7 @@ nav {
                 <th>Pressure</th>
             </tr>
             <tr>
-                <td>null</td>
+                <td>closest hour</td>
                 <td>null</td>
                 <td>null</td>
                 <td>null</td>
@@ -168,7 +257,7 @@ nav {
                 <td>null</td>
             </tr>
             <tr>
-                <td>null</td>
+                <td>next hour</td>
                 <td>null</td>
                 <td>null</td>
                 <td>null</td>
