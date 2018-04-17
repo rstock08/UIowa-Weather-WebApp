@@ -12,27 +12,26 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 
+<%      
+String logPage, logSet;
+if (session.getAttribute("email") != null) {
+    //accountText = session.getAttribute("userEmail").toString();
+    logPage = "logout.jsp";
+    logSet = "Log Out";
+} else {
+    //accountText = "My Account";
+    logPage = "login.jsp";
+    logSet = "Log In";
+    //profilePage = "login.jsp";
+}
+%>
+
 <html>
     <head>
         <title>Login Form</title>
         <link rel='stylesheet' href='css/style.css'>
     </head>
     <body>
-        
-        <%      
-            
-        String logPage, logSet;
-        if (session.getAttribute("email") != null) {
-            //accountText = session.getAttribute("userEmail").toString();
-            logPage = "logout.jsp";
-            logSet = "Log Out";
-        } else {
-            //accountText = "My Account";
-            logPage = "login.jsp";
-            logSet = "Log In";
-            //profilePage = "login.jsp";
-        }
-        %>
         
         <header>
             <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
@@ -42,13 +41,12 @@ and open the template in the editor.
           <li><a href="index.jsp">Home</a></li>
           <li><a href="#change 1">Change 1</a></li>
           <li><a href="#change 2">Change 2</a></li>
-          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></li>
+          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
         
         <div class="forgotpassword">
             <form method="post" action="ForgotPassServlet">
                 <input type="text" placeholder="email" name="email" required>
-                <br>
                 <input type="submit" value="Send Reset">
             </form>
         </div>

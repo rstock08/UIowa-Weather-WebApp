@@ -25,7 +25,6 @@ public class ForgotPassServlet extends HttpServlet {
 
         // Collect parameters from html login form
         String email=request.getParameter("email");
-        String password=null;
 
         // Try to connect to DB
         try {
@@ -34,21 +33,26 @@ public class ForgotPassServlet extends HttpServlet {
         PreparedStatement ps = c.prepareStatement("SELECT password FROM login WHERE email=?");
         ps.setString(1, email);
         ResultSet rs = ps.executeQuery();
-        password = rs.getString("password");
+        String password = rs.getString("password");
         
-        int i=ps.executeUpdate();  
+        int i=ps.executeUpdate(); 
+        
+        String subj = "Forgot Password";
+        String msg = password;
+        
+        SendEmail.send(email, subj, msg);
+        
         if(i>0)  {
-        out.print("Password reset email sending...");
 
-        // Call class SendEmail to send email with new password
-        new SendEmail(email, password);
+            // Call class SendEmail to send email with user password password
+            //new SendEmail(email, password);
 
-        response.sendRedirect("index.html");
+            response.sendRedirect("index.jsp");
         }
 
-        }catch (Exception e2) {
-            out.println(e2);  
-            //response.sendRedirect("createaccount.html");
+        }catch (Exception e) {
+            out.println(e);  
+            response.sendRedirect("createaccount.jsp");
             }
         out.close();
     }

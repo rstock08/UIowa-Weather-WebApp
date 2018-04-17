@@ -12,6 +12,21 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<%      
+String logPage, logSet;
+if (session.getAttribute("email") != null) {
+    //accountText = session.getAttribute("userEmail").toString();
+    logPage = "logout.jsp";
+    logSet = "Logout";
+} else {
+    //accountText = "My Account";
+    logPage = "login.jsp";
+    logSet = "Login";
+    //profilePage = "login.jsp";
+}
+%>
+
 <html>
     <head>
         <title>Weather Web Service</title>
@@ -19,21 +34,6 @@ and open the template in the editor.
     </head>
 
     <body>
-        
-        <%      
-            
-        String logPage, logSet;
-        if (session.getAttribute("email") != null) {
-            //accountText = session.getAttribute("userEmail").toString();
-            logPage = "logout.jsp";
-            logSet = "Log Out";
-        } else {
-            //accountText = "My Account";
-            logPage = "login.jsp";
-            logSet = "Log In";
-            //profilePage = "login.jsp";
-        }
-        %>
         
         <header>
             <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
@@ -43,7 +43,7 @@ and open the template in the editor.
           <li><a class="active" href="index.jsp">Home</a></li>
           <li><a href="#change 1">Change 1</a></li>
           <li><a href="#change 2">Change 2</a></li>
-          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></li>
+          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
 
     </body>

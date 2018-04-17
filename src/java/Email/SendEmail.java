@@ -9,23 +9,17 @@
 package Email;
 
 // Import statements
-import java.util.Date;
-import java.util.Properties;
-import javax.mail.Authenticator;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.AddressException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
+import java.util.Properties;  
+import javax.mail.*;  
+import javax.mail.internet.InternetAddress;  
+import javax.mail.internet.MimeMessage;  
+  
+public class SendEmail {  
+    public static void send(String to,String subject,String msg){  
 
-public class SendEmail {
-
-    public void sendEmail(String email, String password) throws AddressException,
-        MessagingException {
-
+        final String user="test.air.iowa@gmail.com";//change accordingly  
+        final String pass="testing123test!";  
+        
         // sets SMTP server properties
         Properties properties = new Properties();
         properties.put("mail.smtp.host", "smtp.gmail.com");
@@ -33,37 +27,27 @@ public class SendEmail {
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
 
-        // Sets admin email and several other parameters
-        final String adminEmail = "test.iowa.air@gmail.com";
-        final String adminPass = "testtesttest123";
-        String toAddress = email; //
-        String subject = "Hello new manager!";
-        String message = "Your Iowa Air email/username is: " + email +
-                "\nYour Weather App password is: " + password;
+        Session session = Session.getDefaultInstance(properties,  
+         new javax.mail.Authenticator() {  
+          protected PasswordAuthentication getPasswordAuthentication() {  
+           return new PasswordAuthentication(user,pass);  
+           }  
+        });  
+        //2nd step)compose message  
+        try {  
+            MimeMessage message = new MimeMessage(session);  
+            message.setFrom(new InternetAddress(user));  
+            message.addRecipient(Message.RecipientType.TO,new InternetAddress(to));  
+            message.setSubject(subject);  
+            message.setText(msg);  
 
-        // creates a new session with an authenticator
-        Authenticator auth = new Authenticator() {
-            public PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication(adminEmail, adminPass);
-            }
-        };
+            //3rd step)send message  
+            Transport.send(message);  
 
-        // New Session object
-        Session session = Session.getInstance(properties, auth);
+            System.out.println("Done");  
 
-        // creates a new e-mail message
-        Message msg = new MimeMessage(session);
-
-        msg.setFrom(new InternetAddress(adminEmail));
-        InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
-        msg.setRecipients(Message.RecipientType.TO, toAddresses);
-        msg.setSubject(subject);
-        msg.setSentDate(new Date());
-        // set plain text message
-        msg.setText(message);
-
-        // sends the e-mail
-        Transport.send(msg);
-
-    }
-}
+        } catch (MessagingException e) {  
+           throw new RuntimeException(e);  
+        }  
+    }  
+}  
