@@ -18,7 +18,8 @@ import java.sql.*;
 public class LoginServlet extends HttpServlet {
         
         @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+                throws ServletException, IOException {
             
             // Collect parameters from html login form
             String email=request.getParameter("email");
@@ -35,7 +36,9 @@ public class LoginServlet extends HttpServlet {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                    response.sendRedirect("index.html");
+                    HttpSession session = request.getSession();
+                    session.setAttribute("email", email);
+                    response.sendRedirect("index.jsp");
                     return;
             }
             response.sendRedirect("error.html");

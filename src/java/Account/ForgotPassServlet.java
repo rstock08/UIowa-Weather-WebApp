@@ -25,18 +25,17 @@ public class ForgotPassServlet extends HttpServlet {
 
         // Collect parameters from html login form
         String email=request.getParameter("email");
-        String password="temporary, make function for random password.";
+        String password=null;
 
         // Try to connect to DB
         try {
         Class.forName("com.mysql.jdbc.Driver");
-        // loads driver
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
-        PreparedStatement ps = c.prepareStatement("insert into login values (?,?)");
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", "");
+        PreparedStatement ps = c.prepareStatement("SELECT password FROM login WHERE email=?");
         ps.setString(1, email);
-        //ps.setString(2, password);
         ResultSet rs = ps.executeQuery();
-
+        password = rs.getString("password");
+        
         int i=ps.executeUpdate();  
         if(i>0)  {
         out.print("Password reset email sending...");

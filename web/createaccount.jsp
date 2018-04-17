@@ -1,0 +1,60 @@
+<%-- 
+    Document   : createaccount
+    Created on : Apr 17, 2018, 12:52:00 AM
+    Author     : ReedS
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+
+<html>
+    <head>
+        <title>Login Form</title>
+        <link rel='stylesheet' href='css/style.css'>
+    </head>
+    <body>
+        
+        <%      
+            
+        String logPage, logSet;
+        if (session.getAttribute("email") != null) {
+            //accountText = session.getAttribute("userEmail").toString();
+            logPage = "logout.jsp";
+            logSet = "Log Out";
+        } else {
+            //accountText = "My Account";
+            logPage = "login.jsp";
+            logSet = "Log In";
+            //profilePage = "login.jsp";
+        }
+        %>
+        
+        <header>
+            <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
+        </header>
+        
+        <ul>
+          <li><a href="index.jsp">Home</a></li>
+          <li><a href="#change 1">Change 1</a></li>
+          <li><a href="#change 2">Change 2</a></li>
+          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></li>
+        </ul>
+        
+        <div class="createaccount">
+            <form method="post" action="CreateAccServlet">
+                <input type="text" placeholder="email" name="email" required>
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="text" placeholder="First Name" name="fname" required>
+                <input type="text" placeholder="Last Name" name="lname" required>
+                <input type="text" placeholder="Zip Code" name="zip" required>
+                <input type="submit" value="Submit">
+            </form>
+
+        </div>
+    </body>
+</html>

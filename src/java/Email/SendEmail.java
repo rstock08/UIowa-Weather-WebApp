@@ -9,85 +9,61 @@
 package Email;
 
 // Import statements
-import java.io.*;
-import java.util.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.mail.*;
-import javax.mail.internet.*;
-import javax.activation.*;
- 
-// Beginning of main servlet class
-public class SendEmail extends HttpServlet {
-    
-    // Variables
-    String toEmail=null; // Holds value from constructor. Recipients email address.
-    String password=null; // Holds passed in password to send to email.
-    
-    public SendEmail(String toEmail, String password){
-        this.toEmail = toEmail;
-        this.password = password;
+import java.util.Date;
+import java.util.Properties;
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+public class SendEmail {
+
+    public void sendEmail(String email, String password) throws AddressException,
+        MessagingException {
+
+        // sets SMTP server properties
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.gmail.com");
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        properties.put("mail.smtp.starttls.enable", "true");
+
+        // Sets admin email and several other parameters
+        final String adminEmail = "test.iowa.air@gmail.com";
+        final String adminPass = "testtesttest123";
+        String toAddress = email; //
+        String subject = "Hello new manager!";
+        String message = "Your Iowa Air email/username is: " + email +
+                "\nYour Weather App password is: " + password;
+
+        // creates a new session with an authenticator
+        Authenticator auth = new Authenticator() {
+            public PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(adminEmail, adminPass);
+            }
+        };
+
+        // New Session object
+        Session session = Session.getInstance(properties, auth);
+
+        // creates a new e-mail message
+        Message msg = new MimeMessage(session);
+
+        msg.setFrom(new InternetAddress(adminEmail));
+        InternetAddress[] toAddresses = { new InternetAddress(toAddress) };
+        msg.setRecipients(Message.RecipientType.TO, toAddresses);
+        msg.setSubject(subject);
+        msg.setSentDate(new Date());
+        // set plain text message
+        msg.setText(message);
+
+        // sends the e-mail
+        Transport.send(msg);
+
     }
-    
-   public void doGet(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
-      
-      // Recipient's email ID needs to be mentioned.
-      String to = toEmail;
- 
-      // Sender's email ID needs to be mentioned
-      String from = "Test.Iowa.Air@gmail.com";
- 
-      // Assuming you are sending email from localhost
-      String host = "localhost";
- 
-      // Get system properties
-      Properties properties = System.getProperties();
- 
-      // Setup mail server
-      properties.setProperty("mail.smtp.host", host);
- 
-      // Get the default Session object.
-      Session session = Session.getDefaultInstance(properties);
-      
-      // Set response content type
-      response.setContentType("text/html");
-      PrintWriter out = response.getWriter();
-
-      try {
-         
-         // Create a default MimeMessage object.
-         MimeMessage message = new MimeMessage(session);
-         
-         // Set From: header field of the header.
-         message.setFrom(new InternetAddress(from));
-         
-         // Set To: header field of the header.
-         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-         // Set Subject: header field
-         message.setSubject("This is the Subject Line!");
-
-         // Send the actual HTML message, as big as you like
-         message.setContent("<h1>This is actual message</h1>", "text/html" );
-         
-         // Send message
-         Transport.send(message);
-         String title = "Send Email";
-         String res = "Sent message successfully....";
-         String docType =
-         "<!doctype html public \"-//w3c//dtd html 4.0 " + "transitional//en\">\n";
-         
-         out.println(docType +
-            "<html>\n" +
-               "<head><title>" + title + "</title></head>\n" +
-               "<body bgcolor = \"#f0f0f0\">\n" +
-                  "<h1 align = \"center\">" + title + "</h1>\n" +
-                  "<p align = \"center\">" + res + "</p>\n" +
-               "</body>" +
-            "</html>"
-         );
-      } catch (MessagingException mex) {
-         mex.printStackTrace();
-      }
-   }
-} 
+}

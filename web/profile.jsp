@@ -1,3 +1,10 @@
+<%-- 
+    Document   : profile
+    Created on : Apr 17, 2018, 12:55:39 AM
+    Author     : ReedS
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
 To change this license header, choose License Headers in Project Properties.
