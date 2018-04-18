@@ -26,7 +26,7 @@ and open the template in the editor.
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#change 1">Change 1</a></li>
                 <li><a href="#change 2">Change 2</a></li>
-                <li style="float:right"><a class="active" href="login.html">Login</a></li>
+                <li style="float:right"><a class="active" href="login.asp">Login</a></li>
             </ul>
         <table border=0>
             <tr>
@@ -36,19 +36,19 @@ and open the template in the editor.
                             <td>
                                 Account Settings
                                 <br>
-                                <button type="button" onclick="window.location.href='forgotpassword.html'" />Change Password</button>
+                                <button type="button" onclick="window.location.href='forgotpassword.asp'" />Change Password</button>
                                 <br>
                                 <!-- What link is this going to? -->
-                                <button type="button" onclick="window.location.href='error.html'">Change Email</button>
+                                <button type="button" onclick="window.location.href='error.asp'">Change Email</button>
                             </td>
                        <tr>
                     </table>
-		        </td>
-		        <td>
+		</td>
+		<td>
                     <table border=1>
                         <tr>
                             <td>
-				                Add Locations
+				Add Locations
                                 <br>
                                     <form method="post" action="AddLocation">
                                         <input type="text" placeholder="Zipcode" name="zipcode">
@@ -60,11 +60,12 @@ and open the template in the editor.
                                         <input type="submit" value="Submit">
                                     </form>
                             </td>
-			            <tr>
+			<tr>
                     </table>
-		        </td>
+		</td>
             </tr>
         </table>
  
     </body>
 </html>
+
