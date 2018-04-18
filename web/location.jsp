@@ -199,8 +199,8 @@ and open the template in the editor.
     
     <ul>
         <li><a href="index.html">Home</a></li>
-        <li style="float:right"><a class="active" href="account.html">Account</a></li>
-        <li style="float:right"><a class="active" href="login.html">Login</a></li>
+        <li style="float:right"><a class="active" href="account.jsp">Account</a></li>
+        <li style="float:right"><a class="active" href="login.jsp">Login</a></li>
     </ul>
     
     <div class="topnav">
@@ -210,56 +210,69 @@ and open the template in the editor.
             <button>Search</button>
         </div>
         <div class="dropdown">
-            <button style="float:right" class="dropbtn">Saved Locations</button>             
-            <div class="dropdown-content">
-                <a href="#">Location 1</a>
-                <a href="#">Location 2</a>
-                <a href="#">Location 3</a>
-                <a class="active" href="locmanagement.html">EDIT</a>
-            </div>
-        </div>
-    </div>
-        <%  
+            <button style="float:right" class="dropbtn">Saved Locations</button> 
+            <%
             Connection connection = null;
             Class.forName("com.mysql.jdbc.Driver");
             connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb","root","root");
-
-            Statement statement = connection.createStatement();
-
-            String command = "Select location, temperature, humidity, feelslike, wind, pressure from weather where location=?";
-            statement.executeUpdate(command);
-
-            ResultSet resultset = statement.executeQuery("select * from weather");
-
-            while(resultset.next()){ 
-        %>
+            
+            Statement slStatement = connection.createStatement();
+            
+            String slCommand = "Select location1, location2, location3 from savedlocations";
+            slStatement.executeUpdate(slCommand);
+            
+            ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
+            
+            while(slresultset.next()){
+            %>
+            <div class="dropdown-content">
+                <a><%= slresultset.getString(1) %></a>
+                <a><%= slresultset.getString(2) %></a>
+                <a><%= slresultset.getString(3) %></a>
+                <a class="active" href="locmanagement.jsp">EDIT</a>
+            </div>
+            <%
+            }
+            %>
+        </div>
+    </div>
     <div class="grid-container" id="summary" action="LocationServlet">
         <div class="grid-item">
         <div class="weather-container">
-            <div class="item1">
+            <div class="loc">
                 <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
+            </div> 
+            <%  
+            Statement displaystatement = connection.createStatement();
+
+            String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather"; //where location=?
+            displaystatement.executeUpdate(displaycommand);
+
+            ResultSet displayresultset = displaystatement.executeQuery("select * from weather");
+
+            while(displayresultset.next()){ 
+            %>
+            <div class="loc">            
+                <a><%= displayresultset.getString(1) %></a>
             </div>
-            <div class="item2">            
-                <a><%= resultset.getString(1) %></a>
+            <div class="temp"> 
+                <a><%= displayresultset.getString(2) %></a>            
             </div>
-            <div class="item3"> 
-                <a><%= resultset.getString(2) %></a>            
+            <div class="humidity">             
+                <a><%= displayresultset.getString(3) %></a>
             </div>
-            <div class="item4">             
-                <a><%= resultset.getString(3) %></a>
+            <div class="feelslike">             
+                <a><%= displayresultset.getString(4) %></a>
             </div>
-            <div class="item5">             
-                <a><%= resultset.getString(4) %></a>
+            <div class="wind">             
+                <a><%= displayresultset.getString(5) %></a>
             </div>
-            <div class="item6">             
-                <a><%= resultset.getString(5) %></a>
+            <div class="pressure">             
+                <a><%= displayresultset.getString(6) %></a>
             </div>
-            <div class="item7">             
-                <a><%= resultset.getString(6) %></a>
-            </div>
-        <%
+            <%
             }
-        %>
+            %>
         </div>
         </div>
   
@@ -273,6 +286,29 @@ and open the template in the editor.
                 <th>Wind</th>
                 <th>Pressure</th>
             </tr>
+            <%
+            Statement statement = connection.createStatement();
+
+            String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where location=?";
+            statement.executeUpdate(command);
+
+            ResultSet resultset = statement.executeQuery("select * from weather");
+
+            while(resultset.next()){ 
+            %>
+            
+            <!-- auto generate entire weather table
+               - need to figure out how to insert specific data in each column
+            <% for(int row=1; row <= 24; row++) { %>
+            <tr>
+            <%      for(int col=1; col<=6; col++) { %>
+            <td> (<%=col%>, <%=row%>)
+            </td>
+            <% } %>
+            </tr>
+            <% } %>
+            -->
+            
             <tr>
                 <td><a id="closestHour"></a></td>
                 <td>null</td>
