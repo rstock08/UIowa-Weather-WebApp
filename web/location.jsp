@@ -279,7 +279,7 @@ and open the template in the editor.
         <div class="grid-item">
         <table id="hourly">
             <tr>
-                <th>Hourly</th>
+                <th>Time</th>
                 <th>Temperature</th>            
                 <th>Humidity</th>
                 <th>Feels Like</th>
@@ -297,49 +297,24 @@ and open the template in the editor.
             while(resultset.next()){ 
             %>
             
-            <!-- auto generate entire weather table
-               - need to figure out how to insert specific data in each column
-            <% for(int row=1; row <= 24; row++) { %>
+            <% int i = 0; 
+            for(int row=1; row <= 24; row++) { %>
             <tr>
-            <%      for(int col=1; col<=6; col++) { %>
-            <td> (<%=col%>, <%=row%>)
-            </td>
-            <% } %>
+                <td><%= resultset.getString(1+i) %></td>
+                <td><%= resultset.getString(2+i) %></td>
+                <td><%= resultset.getString(3+i) %></td>
+                <td><%= resultset.getString(4+i) %></td>
+                <td><%= resultset.getString(5+i) %></td>
+                <td><%= resultset.getString(6+i) %></td>
             </tr>
-            <% } %>
-            -->
-            
-            <tr>
-                <td><a id="closestHour"></a></td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-            </tr>
-            <tr>
-                <td>next hour</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-                <td>null</td>
-            </tr>
-            <tr>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-                <td>...</td>
-            </tr>
+            <%i+=6; 
+            }%>
         </table>
         </div>
     </div>
     <script>
         var d = new Date();
         document.getElementById("todayDate").innerHTML = String(d.getDate())+"-"+String(d.getMonth()+1)+"-"+String(d.getFullYear());
-        document.getElementById("closestHour").innerHTML = d.getHours();    // need to convert out of military time
     </script>
 </body>
 </html>
