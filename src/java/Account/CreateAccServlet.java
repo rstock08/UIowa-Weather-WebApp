@@ -44,12 +44,12 @@ public class CreateAccServlet extends HttpServlet {
         int i=ps.executeUpdate();  
         if(i>0)  {
         out.print("You are successfully registered...");  
-        response.sendRedirect("index.html");
+        response.sendRedirect("index.jsp");
         }
         
         }catch (Exception e2) {
             out.println(e2);  
-            //response.sendRedirect("createaccount.html");
+            response.sendRedirect("createaccount.html");
             }
         out.close(); 
     } 

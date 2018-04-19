@@ -9,10 +9,6 @@
         <servlet-class>Account.ForgotPassServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EmailForgotPass</servlet-name>
-        <servlet-class>Email.EmailForgotPass</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>SendEmail</servlet-name>
         <servlet-class>Email.SendEmail</servlet-class>
     </servlet>
@@ -31,14 +27,6 @@
     <servlet-mapping>
         <servlet-name>ForgotPassServlet</servlet-name>
         <url-pattern>/ForgotPassServlet</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EmailForgotPass</servlet-name>
-        <url-pattern>/EmailForgotPass</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>SendEmail</servlet-name>
-        <url-pattern>/SendEmail</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>LogoutServlet</servlet-name>

@@ -25,6 +25,7 @@ public class ForgotPassServlet extends HttpServlet {
     private String user;
     private String pass;
  
+    @Override
     public void init() {
         // reads SMTP server setting from web.xml file
         ServletContext context = getServletContext();
@@ -35,60 +36,58 @@ public class ForgotPassServlet extends HttpServlet {
     }
         
     @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
 
         // Collect parameters from html login form
         String email=request.getParameter("email");
         
-        String password = "failed to fetch";
-
+        String password = email;
+        
         // Try to connect to DB
         try {
-            
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", "");
-            PreparedStatement ps = c.prepareStatement("SELECT password FROM login WHERE email=?");
-            ps.setString(1, email);
-            ResultSet rs = ps.executeQuery();
-            password = rs.getString("password");
+        Class.forName("com.mysql.jdbc.Driver");
+        // loads driver
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
+        PreparedStatement ps = c.prepareStatement("SELECT password FROM login WHERE email=?");
+        ps.setString(1, email);
+        ResultSet rs = ps.executeQuery();
 
-            int i=ps.executeUpdate(); 
+        while (rs.next()) {
+                password = rs.getString("password");
+                //response.sendRedirect("emailresult.jsp");
+                
+                
+                // Outbound messages
+                String subject = "Password Fetch";
+                String content = "Your Weather App password is: " + password;
 
-            if(i>0)  {
+                // Result message displayed on emailresult.jsp page
+                String resultMessage = "";
 
-                // Call class SendEmail to send email with user password password
-                //new SendEmail(email, password);
 
-                response.sendRedirect("index.jsp");
-            }
-
-        }catch (IOException | ClassNotFoundException | SQLException e) {
-            out.println(e);  
-            response.sendRedirect("createaccount.jsp");
-            }
-        out.close();
-        
-        
-        // Outbound messages
-        String subject = "Password Fetch";
-        String content = "Your Weather App password is: " + password;
-        
-        // Result message displayed on emailresult.jsp page
-        String resultMessage = "";
-        
-        
-        // Attempting to send email
-        try {
-            SendEmail.sendEmail(host, port, user, pass, email, subject,
-                    content);
-            resultMessage = "The e-mail was sent successfully";
-        } catch (Exception ex) {
-            ex.printStackTrace();
-            resultMessage = "There were an error: " + ex.getMessage();
-        } finally {
-            request.setAttribute("Message", resultMessage);
-            getServletContext().getRequestDispatcher("/Result.jsp").forward(
-                    request, response);
+                // Attempting to send email
+                try {
+                    SendEmail.sendEmail(host, port, user, pass, email, subject,
+                            content);
+                    resultMessage = "The e-mail was sent successfully";
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    resultMessage = "There were an error: " + ex.getMessage();
+                } finally {
+                    request.setAttribute("Message", resultMessage);
+                    getServletContext().getRequestDispatcher("/emailresult.jsp").forward(
+                            request, response);
+                }
+                
+                
+                return;
+        }
+        response.sendRedirect("error.html");
+        return;
+        } catch (ClassNotFoundException | SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
         }
     }
 }
