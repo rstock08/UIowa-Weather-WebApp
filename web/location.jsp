@@ -174,19 +174,7 @@ and open the template in the editor.
     border: 1px solid #ccc;  
   }
 }
-
 </style>
-<!--
-    function onButtonClick(){
-        entry = document.getElementById("locationEntry").value
-        fetch("placeholder.com/location/?string="+entry,{method:"GET"})
-        .then(function(response){        
-            return response.json()
-        }).then(function(data){
-            console.log(data)
-        })
-    }
--->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Location</title>
@@ -217,10 +205,6 @@ and open the template in the editor.
             connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb","root","root");
             
             Statement slStatement = connection.createStatement();
-            
-            String slCommand = "Select location1, location2, location3 from savedlocations";
-            slStatement.executeUpdate(slCommand);
-            
             ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
             
             while(slresultset.next()){
@@ -244,11 +228,8 @@ and open the template in the editor.
             </div> 
             <%  
             Statement displaystatement = connection.createStatement();
-
             String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather"; //where location=?
-            displaystatement.executeUpdate(displaycommand);
-
-            ResultSet displayresultset = displaystatement.executeQuery("select * from weather");
+            ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
 
             while(displayresultset.next()){ 
             %>
@@ -288,16 +269,10 @@ and open the template in the editor.
             </tr>
             <%
             Statement statement = connection.createStatement();
-
             String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where location=?";
-            statement.executeUpdate(command);
-
-            ResultSet resultset = statement.executeQuery("select * from weather");
-
-            while(resultset.next()){ 
-            %>
+            ResultSet resultset = statement.executeQuery(command);
             
-            <% int i = 0; 
+            int i = 0; 
             for(int row=1; row <= 24; row++) { %>
             <tr>
                 <td><%= resultset.getString(1+i) %></td>
