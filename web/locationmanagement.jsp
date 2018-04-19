@@ -117,7 +117,7 @@
         <a id="todayDate"></a>
         <div class="search-container">
             <input id="locationEntry" type="text" placeholder="Search Location.." name="search">
-            <button onclick="onButtonClick()">Search</button>
+            <button onclick="varLocation=locationEntry">Search</button>
         </div>
     </div>
 
@@ -130,6 +130,7 @@
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
+        // need to specify which user we are getting the saved locations from
         Statement slStatement = connection.createStatement();
         ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
             
@@ -156,7 +157,7 @@
     </table>
     <script>
         var d = new Date();
-        document.getElementById("todayDate").innerHTML = String(d.getDate())+"-"+String(d.getMonth()+1)+"-"+String(d.getFullYear());
+        document.getElementById("todayDate").innerHTML = String(d.getMonth()+1)+"-"+String(d.getDate())+"-"+String(d.getFullYear());
     </script>
 </body>
 </html>
