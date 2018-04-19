@@ -186,7 +186,7 @@ and open the template in the editor.
     </header>
     
     <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.jsp">Home</a></li>
         <li style="float:right"><a class="active" href="account.jsp">Account</a></li>
         <li style="float:right"><a class="active" href="login.jsp">Login</a></li>
     </ul>
@@ -200,9 +200,8 @@ and open the template in the editor.
         <div class="dropdown">
             <button style="float:right" class="dropbtn">Saved Locations</button> 
             <%
-            Connection connection = null;
             Class.forName("com.mysql.jdbc.Driver");
-            connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb","root","root");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
             Statement slStatement = connection.createStatement();
             ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
@@ -213,7 +212,7 @@ and open the template in the editor.
                 <a><%= slresultset.getString(1) %></a>
                 <a><%= slresultset.getString(2) %></a>
                 <a><%= slresultset.getString(3) %></a>
-                <a class="active" href="locmanagement.jsp">EDIT</a>
+                <a class="active" href="locationmanagement.jsp">EDIT</a>
             </div>
             <%
             }
@@ -228,7 +227,7 @@ and open the template in the editor.
             </div> 
             <%  
             Statement displaystatement = connection.createStatement();
-            String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather"; //where location=?
+            String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather where location='marengo' and time='1:00AM'"; 
             ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
 
             while(displayresultset.next()){ 
@@ -269,20 +268,21 @@ and open the template in the editor.
             </tr>
             <%
             Statement statement = connection.createStatement();
-            String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where location=?";
+            String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where location='marengo'";
             ResultSet resultset = statement.executeQuery(command);
             
             int i = 0; 
-            for(int row=1; row <= 24; row++) { %>
+            //for(int row=1; row <= 24; row++) { 
+            while(resultset.next()){ %>
             <tr>
-                <td><%= resultset.getString(1+i) %></td>
-                <td><%= resultset.getString(2+i) %></td>
-                <td><%= resultset.getString(3+i) %></td>
-                <td><%= resultset.getString(4+i) %></td>
-                <td><%= resultset.getString(5+i) %></td>
-                <td><%= resultset.getString(6+i) %></td>
+                <td><%= resultset.getString(1) %></td>
+                <td><%= resultset.getString(2) %></td>
+                <td><%= resultset.getString(3) %></td>
+                <td><%= resultset.getString(4) %></td>
+                <td><%= resultset.getString(5) %></td>
+                <td><%= resultset.getString(6) %></td>
             </tr>
-            <%i+=6; 
+            <%      i+=6; 
             }%>
         </table>
         </div>
