@@ -41,7 +41,7 @@ if (session.getAttribute("email") != null) {
           <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
         
-        <div class="Results">
+        <div class="result">
             <center>
                 <h3><%=request.getAttribute("Message")%></h3>
             </center>
