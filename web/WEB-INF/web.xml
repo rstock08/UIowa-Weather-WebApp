@@ -59,4 +59,29 @@
         <servlet-name>CreateAccServlet</servlet-name>w
         <url-pattern>/CreateAccServlet</url-pattern>
     </servlet-mapping>
+    
+        <!-- SMTP settings -->
+    <context-param>
+        <param-name>host</param-name>
+        <param-value>smtp.gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>port</param-name>
+        <param-value>587</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>user</param-name>
+        <param-value>test.iowa.air@gmail.com</param-value>
+    </context-param>
+ 
+    <context-param>
+        <param-name>pass</param-name>
+        <param-value>testing123test!</param-value>
+    </context-param>
+ 
+    <welcome-file-list>
+        <welcome-file>EmailForm.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>

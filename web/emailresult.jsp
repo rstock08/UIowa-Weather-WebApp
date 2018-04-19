@@ -1,16 +1,13 @@
 <%-- 
-    Document   : forgotpassword
-    Created on : Apr 17, 2018, 12:51:14 AM
+    Document   : Email results
+    Created on : Apr 18, 2018, 11:35:37 PM
     Author     : ReedS
 --%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
+    pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+     "http://www.w3.org/TR/html4/loose.dtd">
 
 <%      
 String logPage, logSet;
@@ -28,7 +25,7 @@ if (session.getAttribute("email") != null) {
 
 <html>
     <head>
-        <title>Login Form</title>
+        <title>Results</title>
         <link rel='stylesheet' href='css/style.css'>
     </head>
     <body>
@@ -44,11 +41,10 @@ if (session.getAttribute("email") != null) {
           <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
         
-        <div class="forgotpassword">
-            <form method="post" action="SendEmail">
-                <input type="text" placeholder="email" name="email" required>
-                <input type="submit" value="Send Reset">
-            </form>
+        <div class="Results">
+            <center>
+                <h3><%=request.getAttribute("Message")%></h3>
+            </center>
         </div>
     </body>
 </html>
