@@ -34,12 +34,15 @@ public class LoginServlet extends HttpServlet {
             PreparedStatement ps = c.prepareStatement("Select email, password, type from login where email=? and password=?");
             ps.setString(1, email);
             ps.setString(2, password);
+            ps.setString(3,type);
+            
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                     HttpSession session = request.getSession();
                     session.setAttribute("email", email);
                     session.setAttribute("type", type);
+ 
                     response.sendRedirect("index.jsp");
                     return;
             }

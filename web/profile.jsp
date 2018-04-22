@@ -25,6 +25,9 @@ if (session.getAttribute("email") != null) {
     profilePage = "";
     profileSet = "";
 }
+if(session.getAttribute("type") == "admin"){
+    
+}
 %>
 
 <html>
@@ -44,7 +47,6 @@ if (session.getAttribute("email") != null) {
           <li style="float:right"><a class="active" href="<%=profilePage%>"><%=profileSet%></a></li>
           <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
-        
 
         <div class="updatepass">
             <form method="post" action="UpdatePassServlet">
