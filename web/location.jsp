@@ -38,7 +38,7 @@
         padding: 10px;
     }
     .item1{
-        grid-row: 1 / 7;
+        grid-row: 1 / 8;
         padding-right: 10px;
     }
     .dropbtn {
@@ -133,7 +133,7 @@
 
 .topnav input[type=text] {
   padding: 6px;
-  margin-top: 8px;
+  margin-top: 4px;
   font-size: 17px;
   border: none;
 }
@@ -187,7 +187,8 @@
                 // do something with returned data
                 document.getElementById("savedLoc").innerHTML = data.location;
                 document.getElementById("time").innerHTML = data.time;
-                document.getElementById("temperature").innerHTML = data.temperature;
+                document.getElementById("temperatureF").innerHTML = data.temperatureF;
+                document.getElementById("temperatureC").innerHTML = data.temperatureC;
                 document.getElementById("humidity").innerHTML = data.humidity;
                 document.getElementById("feelslike").innerHTML = data.feelslike;
                 document.getElementById("wind").innerHTML = data.wind;
@@ -210,8 +211,6 @@
         <a id="todayDate"></a>
         <div class="search-container">
             <input id="zipcode" type="text" placeholder="Search Zipcode.." name="zipcode">
-            <!-- need to make it so on click varLocation gets set to the input location above
-            -->
             <button onclick="changeLoc(document.getElementById('zipcode').value)">Search</button>
         </div>
         <div class="dropdown">
@@ -254,7 +253,7 @@
             Statement displaystatement = connection.createStatement();
             // need to introduce a time variable that can be used here to get the current 
             // times weather for the display area
-            String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather where zip="+ varZip +" and time='1:00AM'"; 
+            String displaycommand = "Select location, temperatureF, temperatureC, humidity, feelslike, wind, pressure from weather where zip="+ varZip +" and time='1:00AM'"; 
             ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
             
             // populate current weather for display found on lefthand side of screen
@@ -262,11 +261,12 @@
             %>
             <table id="hourly">
                 <tr><td id='savedLoc'><%= displayresultset.getString(1) %></td></tr>
-                <tr><td id='temperature'><%= displayresultset.getString(2) %></td></tr>
-                <tr><td id='humidity'><%= displayresultset.getString(3) %></td></tr>
-                <tr><td id='feelslike'><%= displayresultset.getString(4) %></td></tr>
-                <tr><td id='wind'><%= displayresultset.getString(5) %></td></tr>
-                <tr><td id='pressure'><%= displayresultset.getString(6) %></td></tr>
+                <tr><td id='temperatureF'><%= displayresultset.getString(2) %></td></tr>
+                <tr><td id='temperatureC'><%= displayresultset.getString(3)%>
+                <tr><td id='humidity'><%= displayresultset.getString(4) %></td></tr>
+                <tr><td id='feelslike'><%= displayresultset.getString(5) %></td></tr>
+                <tr><td id='wind'><%= displayresultset.getString(6) %></td></tr>
+                <tr><td id='pressure'><%= displayresultset.getString(7) %></td></tr>
             </table>
             <%
             }
@@ -278,7 +278,8 @@
         <table id="hourly">
             <tr>
                 <th>Time</th>
-                <th>Temperature</th>            
+                <th>TemperatureF</th>  
+                <th>TemperatureC</th> 
                 <th>Humidity</th>
                 <th>Feels Like</th>
                 <th>Wind</th>
@@ -286,7 +287,7 @@
             </tr>
             <%
             Statement statement = connection.createStatement();
-            String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where zip=" + varZip;
+            String command = "Select time, temperatureF, temperatureC, humidity, feelslike, wind, pressure from weather where zip=" + varZip;
             ResultSet resultset = statement.executeQuery(command);
             
             // populate hourly weather table
@@ -295,11 +296,12 @@
             while(resultset.next()){ %>
             <tr>
                 <td id='time'><%= resultset.getString(1) %></td>
-                <td id='temperature'><%= resultset.getString(2) %></td>
-                <td id='humidity'><%= resultset.getString(3) %></td>
-                <td id='feelslike'><%= resultset.getString(4) %></td>
-                <td id='wind'><%= resultset.getString(5) %></td>
-                <td id='pressure'><%= resultset.getString(6) %></td>
+                <td id='temperatureF'><%= resultset.getString(2) %></td>
+                <td id='temperatureC'><%= resultset.getString(3) %></td>
+                <td id='humidity'><%= resultset.getString(4) %></td>
+                <td id='feelslike'><%= resultset.getString(5) %></td>
+                <td id='wind'><%= resultset.getString(6) %></td>
+                <td id='pressure'><%= resultset.getString(7) %></td>
             </tr>
             <%}%>
         </table>
