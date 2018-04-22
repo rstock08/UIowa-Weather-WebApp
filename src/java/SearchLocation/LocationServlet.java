@@ -4,96 +4,69 @@
  */
 package SearchLocation;
 
+import net.sf.json.*;
 import java.io.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.sql.*;
+import java.util.Map;
 import javax.servlet.annotation.WebServlet;
- 
+  
 
-@WebServlet(name = "GetLocation", urlPatterns = {"/GetLocation"})
+@WebServlet(name = "LocationServlet", urlPatterns = {"/LocationServlet/*"})
 public class LocationServlet extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // collect parameters from html that searches location
-        String location = request.getParameter("location");
-        String temperature = request.getParameter("temperature");
-        String humidity = request.getParameter("humidity");
-        String feelslike = request.getParameter("feelslike");
-        String wind = request.getParameter("wind");
-        String pressure = request.getParameter("pressure");
         
-        // try to connect to db
-        try {
-        Class.forName("com.mysql.jdbc.Driver");
+        @Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) 
+                throws ServletException, IOException {
             
-        // loads driver
-        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
-        PreparedStatement ps = c.prepareStatement("Select location, temperature, humidity, feelslike, wind, pressure from weather where location=?");
-        ps.setString(1, location);
-        ps.setString(2, temperature);
-        ps.setString(3, humidity);
-        ps.setString(4, feelslike);
-        ps.setString(5, wind);
-        ps.setString(6, pressure);
-        ResultSet rs = ps.executeQuery();
+            // Collect parameters
+            String zip=request.getParameter("zip");
             
-        while (rs.next()) {
-            response.sendRedirect("location.html");
-            return;
+            // Try to connect to DB
+            try {
+            Class.forName("com.mysql.jdbc.Driver");
+            // loads driver
+            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
+            PreparedStatement ps = c.prepareStatement("Select location, time, temperature, humidity, feelslike, wind, pressure from weather where zip='" + zip + "'");
+            //ps.setString(1, zip);
+            ResultSet rs = ps.executeQuery();
+            
+            String location = "";
+            String time = "";
+            String temperature= "";
+            String humidity = "";
+            String feelslike = "";
+            String wind = "";
+            String pressure = "";
+            
+            // save results of query in variables
+            while(rs.next()){
+                location = rs.getString(1);
+                time = rs.getString(2);
+                temperature = rs.getString(3);
+                humidity = rs.getString(4);
+                feelslike = rs.getString(5);
+                wind = rs.getString(6);
+                pressure = rs.getString(7);
+                
+            }
+            if(location != ""){
+                String jcontent = "{\"location\": \"" + location + "\", \"time\": \"" + time + "\", \"temperature\": \"" + temperature + "\", \"humidity\": \"" + humidity + "\", \"feelslike\": \"" + feelslike + "\", \"wind\": \"" + wind + "\", \"pressure\": \"" + pressure + "\"}";
+                response.setContentType("application/json");
+                response.setCharacterEncoding("utf-8");
+                // Get printwriter object from response to write json object to output stream      
+                PrintWriter out = response.getWriter();
+                // return json object  
+                out.print(jcontent);
+                out.flush();
+            }
+            else{
+                response.sendRedirect("error.html");
+            }
+            }catch (ClassNotFoundException | SQLException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+            }
         }
-        response.sendRedirect("error.html");
-        return;
-        } catch (ClassNotFoundException | SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 }
