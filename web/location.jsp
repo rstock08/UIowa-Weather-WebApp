@@ -8,18 +8,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <style>      
     table, th, td{
-        padding: 12px;
+        padding: 1px;
         border: 1px solid black;
     }
     nav {
@@ -181,12 +176,32 @@ and open the template in the editor.
     <link rel='stylesheet' href='css/style.css'>
 </head>
 <body>
+    <script>
+        function changeLoc(zipInput){
+            fetch('LocationServlet/?zip='+zipInput, {method: 'GET'})
+            .then(function(res) {
+                return res.json()
+                //console.log(res)
+            })
+            .then(function(data) {
+                // do something with returned data
+                document.getElementById("savedLoc").innerHTML = data.location;
+                document.getElementById("time").innerHTML = data.time;
+                document.getElementById("temperature").innerHTML = data.temperature;
+                document.getElementById("humidity").innerHTML = data.humidity;
+                document.getElementById("feelslike").innerHTML = data.feelslike;
+                document.getElementById("wind").innerHTML = data.wind;
+                document.getElementById("pressure").innerHTML = data.pressure;
+                console.log(data)
+            })
+        }
+    </script>
     <header>
         <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
     </header>
     
     <ul>
-        <li><a href="index.html">Home</a></li>
+        <li><a href="index.jsp">Home</a></li>
         <li style="float:right"><a class="active" href="account.jsp">Account</a></li>
         <li style="float:right"><a class="active" href="login.jsp">Login</a></li>
     </ul>
@@ -194,63 +209,65 @@ and open the template in the editor.
     <div class="topnav">
         <a id="todayDate"></a>
         <div class="search-container">
-            <input id="location" type="text" placeholder="Search Location.." name="location">
-            <button>Search</button>
+            <input id="zipcode" type="text" placeholder="Search Zipcode.." name="zipcode">
+            <!-- need to make it so on click varLocation gets set to the input location above
+            -->
+            <button onclick="changeLoc(document.getElementById('zipcode').value)">Search</button>
         </div>
         <div class="dropdown">
             <button style="float:right" class="dropbtn">Saved Locations</button> 
             <%
-            Connection connection = null;
             Class.forName("com.mysql.jdbc.Driver");
-            connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb","root","root");
+            Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
+            // default location
+            String varZip = "'54855'";
+            
+            // need to specify which user we are getting the saved locations from
             Statement slStatement = connection.createStatement();
             ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
             
+            // populate saved locations bar on top of screen
             while(slresultset.next()){
             %>
             <div class="dropdown-content">
-                <a><%= slresultset.getString(1) %></a>
-                <a><%= slresultset.getString(2) %></a>
-                <a><%= slresultset.getString(3) %></a>
-                <a class="active" href="locmanagement.jsp">EDIT</a>
+                <!-- need to make it so when these are clicked the varLocation
+                     variable gets set to the contents of slresultset.getString(x)
+                -->
+                <a onclick="changeLoc('<%= slresultset.getString(1) %>')"><%= slresultset.getString(1) %></a>
+                <a onclick="changeLoc('<%= slresultset.getString(2) %>')"><%= slresultset.getString(2) %></a>
+                <a onclick="changeLoc('<%= slresultset.getString(3) %>')"><%= slresultset.getString(3) %></a>
+                <a class="active" href="locationmanagement.jsp">EDIT</a>
             </div>
             <%
             }
             %>
         </div>
     </div>
-    <div class="grid-container" id="summary" action="LocationServlet">
+    <div class="grid-container" id="summary">
         <div class="grid-item">
         <div class="weather-container">
-            <div class="loc">
+            <div>
                 <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
             </div> 
             <%  
             Statement displaystatement = connection.createStatement();
-            String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather"; //where location=?
+            // need to introduce a time variable that can be used here to get the current 
+            // times weather for the display area
+            String displaycommand = "Select location, temperature, humidity, feelslike, wind, pressure from weather where zip="+ varZip +" and time='1:00AM'"; 
             ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
-
+            
+            // populate current weather for display found on lefthand side of screen
             while(displayresultset.next()){ 
             %>
-            <div class="loc">            
-                <a><%= displayresultset.getString(1) %></a>
-            </div>
-            <div class="temp"> 
-                <a><%= displayresultset.getString(2) %></a>            
-            </div>
-            <div class="humidity">             
-                <a><%= displayresultset.getString(3) %></a>
-            </div>
-            <div class="feelslike">             
-                <a><%= displayresultset.getString(4) %></a>
-            </div>
-            <div class="wind">             
-                <a><%= displayresultset.getString(5) %></a>
-            </div>
-            <div class="pressure">             
-                <a><%= displayresultset.getString(6) %></a>
-            </div>
+            <table id="hourly">
+                <tr><td id='savedLoc'><%= displayresultset.getString(1) %></td></tr>
+                <tr><td id='temperature'><%= displayresultset.getString(2) %></td></tr>
+                <tr><td id='humidity'><%= displayresultset.getString(3) %></td></tr>
+                <tr><td id='feelslike'><%= displayresultset.getString(4) %></td></tr>
+                <tr><td id='wind'><%= displayresultset.getString(5) %></td></tr>
+                <tr><td id='pressure'><%= displayresultset.getString(6) %></td></tr>
+            </table>
             <%
             }
             %>
@@ -269,27 +286,40 @@ and open the template in the editor.
             </tr>
             <%
             Statement statement = connection.createStatement();
-            String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where location=?";
+            String command = "Select time, temperature, humidity, feelslike, wind, pressure from weather where zip=" + varZip;
             ResultSet resultset = statement.executeQuery(command);
             
-            int i = 0; 
-            for(int row=1; row <= 24; row++) { %>
+            // populate hourly weather table
+            // need to find way to order so weather starts at current hour
+            // and then proceeds 24 hours forward even if that is the next day
+            while(resultset.next()){ %>
             <tr>
-                <td><%= resultset.getString(1+i) %></td>
-                <td><%= resultset.getString(2+i) %></td>
-                <td><%= resultset.getString(3+i) %></td>
-                <td><%= resultset.getString(4+i) %></td>
-                <td><%= resultset.getString(5+i) %></td>
-                <td><%= resultset.getString(6+i) %></td>
+                <td id='time'><%= resultset.getString(1) %></td>
+                <td id='temperature'><%= resultset.getString(2) %></td>
+                <td id='humidity'><%= resultset.getString(3) %></td>
+                <td id='feelslike'><%= resultset.getString(4) %></td>
+                <td id='wind'><%= resultset.getString(5) %></td>
+                <td id='pressure'><%= resultset.getString(6) %></td>
             </tr>
-            <%i+=6; 
-            }%>
+            <%}%>
         </table>
         </div>
     </div>
     <script>
         var d = new Date();
-        document.getElementById("todayDate").innerHTML = String(d.getDate())+"-"+String(d.getMonth()+1)+"-"+String(d.getFullYear());
+        document.getElementById("todayDate").innerHTML = String(d.getMonth()+1)+"-"+String(d.getDate())+"-"+String(d.getFullYear());
+    </script>
+    <script>
+        // get current hour (0-23) and add 1 to get readable hour
+        var d2 = new Date();
+        time = d2.getHours() + 1;
+        // create string for time ex. "1:00AM"
+        timeAMPM = String(time)+":00AM";
+        // if time is greater than 12 it is in the afternoon
+        if(time > 12){
+            time = time - 12;
+            AMPM = String(time)+":00PM";
+        }
     </script>
 </body>
 </html>
