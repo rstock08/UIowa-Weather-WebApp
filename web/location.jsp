@@ -7,9 +7,6 @@
 <%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
-
-<!DOCTYPE html>
 <html lang="en">
 <head>
 <style>      
@@ -202,8 +199,8 @@
     
     <ul>
         <li><a href="index.jsp">Home</a></li>
-        <li style="float:right"><a class="active" href="account.jsp">Account</a></li>
-        <li style="float:right"><a class="active" href="login.jsp">Login</a></li>
+        <li style="float:right"><a href="account.jsp">Account</a></li>
+        <li style="float:right"><a href="login.jsp">Login</a></li>
     </ul>
     
     <div class="topnav">

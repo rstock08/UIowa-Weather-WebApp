@@ -16,13 +16,11 @@ and open the template in the editor.
 
 String logPage, logSet;
 if (session.getAttribute("email") != null) {
-    //accountText = session.getAttribute("userEmail").toString();
     session.setAttribute("email", null);
     session.invalidate();
     logPage = "index.jsp";
     logSet = "Login";
 } else {
-    //accountText = "My Account";'
     logPage = "login.jsp";
     logSet = "Login";
 }
@@ -41,13 +39,11 @@ if (session.getAttribute("email") != null) {
         
         <ul>
           <li><a href="index.jsp">Home</a></li>
-          <li><a href="#change 1">Change 1</a></li>
-          <li><a href="#change 2">Change 2</a></li>
-          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
+          <li><a href="location.jsp">Hourly</a></li>
+          <li style="float:right"><a class="active" href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
         
-        
-        <div class="login">
+        <div class="createaccount">
             <form method="post" action="LoginServlet">
                 <input type="text" placeholder="email" name="email" required>  
                 <input type="password" placeholder="password" name="password" required>

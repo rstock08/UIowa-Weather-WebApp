@@ -88,6 +88,15 @@ header {
   width: 298px;
 }
 
+.updatepass{
+  background: #eceeee;
+  border: 2px solid #42464b;
+  border-radius: 6px;
+  height: 280px;
+  margin: 20px auto 0;
+  width: 298px;
+}
+
 .createaccount{
   background: #eceeee;
   border: 2px solid #42464b;
@@ -97,7 +106,7 @@ header {
   width: 298px;
 }
 
-.login .createaccount .forgotpassword h1 {
+.login .createaccount .forgotpassword .updatepass h1 {
   background-image: linear-gradient(top, #f1f3f3, #d4dae0);
   border-bottom: 1px solid #a6abaf;
   border-radius: 6px 6px 0 0;

@@ -6,6 +6,7 @@
 
 package Account;
 
+import Email.SendEmail;
 import java.io.*;
 import static java.lang.System.out;
 import javax.servlet.http.*;
@@ -14,6 +15,21 @@ import java.sql.*;
 
 
 public class CreateAccServlet extends HttpServlet {
+    
+    private String host;
+    private String port;
+    private String user;
+    private String pass;
+ 
+    @Override
+    public void init() {
+        // reads SMTP server setting from web.xml file
+        ServletContext context = getServletContext();
+        host = context.getInitParameter("host");
+        port = context.getInitParameter("port");
+        user = context.getInitParameter("user");
+        pass = context.getInitParameter("pass");
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,13 +59,38 @@ public class CreateAccServlet extends HttpServlet {
         
         int i=ps.executeUpdate();  
         if(i>0)  {
-        out.print("You are successfully registered...");  
-        response.sendRedirect("index.jsp");
+            out.print("You are successfully registered...");  
+            //response.sendRedirect("index.jsp");
+        
+            // Email credentials upon success
+            // Outbound messages
+            String subject = "Account Created";
+            String content = "Your Weather App username is: " + email + ". Your password is: "
+                    + password + ".";
+
+            // Result message displayed on emailresult.jsp page
+            String resultMessage = "";
+
+            // Attempting to send email
+            try {
+                SendEmail.sendEmail(host, port, user, pass, email, subject,
+                        content);
+                resultMessage = "The e-mail was sent successfully";
+            } catch (Exception ex) {
+                ex.printStackTrace();
+                resultMessage = "There were an error: " + ex.getMessage();
+            } finally {
+                request.setAttribute("Message", resultMessage);
+                getServletContext().getRequestDispatcher("/emailresult.jsp").forward(
+                        request, response);
+            }
+        
+        
         }
         
         }catch (Exception e2) {
             out.println(e2);  
-            response.sendRedirect("createaccount.html");
+            response.sendRedirect("createaccount.jsp");
             }
         out.close(); 
     } 

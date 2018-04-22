@@ -9,7 +9,6 @@ package Account;
 
 import Email.*;
 import java.io.*;
-import static java.lang.System.out;
 import javax.servlet.http.*;
 import javax.servlet.*;
 import java.sql.*;
@@ -55,8 +54,6 @@ public class ForgotPassServlet extends HttpServlet {
 
         while (rs.next()) {
                 password = rs.getString("password");
-                //response.sendRedirect("emailresult.jsp");
-                
                 
                 // Outbound messages
                 String subject = "Password Fetch";
@@ -83,7 +80,8 @@ public class ForgotPassServlet extends HttpServlet {
                 
                 return;
         }
-        response.sendRedirect("error.html");
+        getServletContext().getRequestDispatcher("/emailresult.jsp").forward(
+                            request, response);
         return;
         } catch (ClassNotFoundException | SQLException e) {
                 // TODO Auto-generated catch block

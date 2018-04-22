@@ -11,6 +11,22 @@ To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
+
+<%      
+String logPage, logSet, profilePage, profileSet;
+if (session.getAttribute("email") != null) {
+    profilePage = "profile.jsp";
+    profileSet = "Profile";
+    logPage = "logout.jsp";
+    logSet = "Logout";
+} else {
+    logPage = "login.jsp";
+    logSet = "Login";
+    profilePage = "";
+    profileSet = "";
+}
+%>
+
 <html>
     <head>
         <title>Login Form</title>
@@ -22,12 +38,22 @@ and open the template in the editor.
             <img class='banner' src="images/banner.jpg" alt="Clouds Banner" >
         </header>
         
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="#change 1">Change 1</a></li>
-                <li><a href="#change 2">Change 2</a></li>
-                <li style="float:right"><a class="active" href="login.jsp">Login</a></li>
-            </ul>
+        <ul>
+          <li><a href="index.jsp">Home</a></li>
+          <li><a href="location.jsp">Hourly</a></li>
+          <li style="float:right"><a class="active" href="<%=profilePage%>"><%=profileSet%></a></li>
+          <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
+        </ul>
+        
+
+        <div class="updatepass">
+            <form method="post" action="UpdatePassServlet">
+                <input type="password" placeholder="Password" name="password" required>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        
+        <!--
         <table border=0>
             <tr>
                 <td>
@@ -38,7 +64,7 @@ and open the template in the editor.
                                 <br>
                                 <button type="button" onclick="window.location.href='forgotpassword.asp'" />Change Password</button>
                                 <br>
-                                <!-- What link is this going to? -->
+                                <!-- What link is this going to? 
                                 <button type="button" onclick="window.location.href='error.asp'">Change Email</button>
                             </td>
                        <tr>
@@ -64,7 +90,8 @@ and open the template in the editor.
                     </table>
 		</td>
             </tr>
-        </table>
+        </table> 
+        -->
  
     </body>
 </html>
