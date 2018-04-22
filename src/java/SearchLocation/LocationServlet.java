@@ -28,13 +28,14 @@ public class LocationServlet extends HttpServlet {
             Class.forName("com.mysql.jdbc.Driver");
             // loads driver
             Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
-            PreparedStatement ps = c.prepareStatement("Select location, time, temperature, humidity, feelslike, wind, pressure from weather where zip='" + zip + "'");
+            PreparedStatement ps = c.prepareStatement("Select location, time, temperatureF, temperatureC, humidity, feelslike, wind, pressure from weather where zip='" + zip + "'");
             //ps.setString(1, zip);
             ResultSet rs = ps.executeQuery();
             
             String location = "";
             String time = "";
-            String temperature= "";
+            String temperatureF = "";
+            String temperatureC = "";
             String humidity = "";
             String feelslike = "";
             String wind = "";
@@ -44,15 +45,16 @@ public class LocationServlet extends HttpServlet {
             while(rs.next()){
                 location = rs.getString(1);
                 time = rs.getString(2);
-                temperature = rs.getString(3);
-                humidity = rs.getString(4);
-                feelslike = rs.getString(5);
-                wind = rs.getString(6);
-                pressure = rs.getString(7);
+                temperatureF = rs.getString(3);
+                temperatureC = rs.getString(4);
+                humidity = rs.getString(5);
+                feelslike = rs.getString(6);
+                wind = rs.getString(7);
+                pressure = rs.getString(8);
                 
             }
             if(location != ""){
-                String jcontent = "{\"location\": \"" + location + "\", \"time\": \"" + time + "\", \"temperature\": \"" + temperature + "\", \"humidity\": \"" + humidity + "\", \"feelslike\": \"" + feelslike + "\", \"wind\": \"" + wind + "\", \"pressure\": \"" + pressure + "\"}";
+                String jcontent = "{\"location\": \"" + location + "\", \"time\": \"" + time + "\", \"temperatureF\": \"" + temperatureF + "\", \"temperatureC\": \"" + temperatureC + "\", \"humidity\": \"" + humidity + "\", \"feelslike\": \"" + feelslike + "\", \"wind\": \"" + wind + "\", \"pressure\": \"" + pressure + "\"}";
                 response.setContentType("application/json");
                 response.setCharacterEncoding("utf-8");
                 // Get printwriter object from response to write json object to output stream      
