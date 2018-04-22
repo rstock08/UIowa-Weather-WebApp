@@ -26,7 +26,7 @@ and open the template in the editor.
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#change 1">Change 1</a></li>
                 <li><a href="#change 2">Change 2</a></li>
-                <li style="float:right"><a class="active" href="login.asp">Login</a></li>
+                <li style="float:right"><a class="active" href="login.jsp">Login</a></li>
             </ul>
         <table border=0>
             <tr>

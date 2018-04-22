@@ -18,14 +18,13 @@ public class CreateAccServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        int numRowsChanged = 0;
-        
         // Request info from html form
         String email=request.getParameter("email");
         String password=request.getParameter("password");
         String fname=request.getParameter("fname");
         String lname=request.getParameter("lname");
         String zip=request.getParameter("zip");
+        String type="user";
 
         // Connect to mysql and verify username password
 
@@ -34,12 +33,13 @@ public class CreateAccServlet extends HttpServlet {
         // loads driver
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
 
-        PreparedStatement ps = c.prepareStatement("insert into login values (?,?,?,?,?)");
+        PreparedStatement ps = c.prepareStatement("insert into login values (?,?,?,?,?,?)");
         ps.setString(1, email);
         ps.setString(2, password);
         ps.setString(3, fname);
         ps.setString(4, lname);
         ps.setString(5, zip);
+        ps.setString(6, type);
         
         int i=ps.executeUpdate();  
         if(i>0)  {
