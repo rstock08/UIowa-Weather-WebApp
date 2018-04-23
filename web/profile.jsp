@@ -51,7 +51,7 @@ if(session.getAttribute("type") == "admin"){
             </form>
         </div>
         <div class="addlocation">
-            <form method="post" action="ProfileServlet">
+            <form method="post" action="AddLocationServlet">
                 <input type="text" placeholder="Zipcode" name="zipcode" required>
                 <input type="text" placeholder="State" name="state" required>
                 <input type="text" placeholder="City" name="city" required>
@@ -64,10 +64,10 @@ if(session.getAttribute("type") == "admin"){
             <th>Action</th>
         </tr>
 
-        <tr>
+<!--        <tr>
             <td><a>Searched Location</a></td>
             <td><button>Add Location</button></td>
-        </tr>        
+        </tr> -->        
         <%
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
@@ -82,7 +82,7 @@ if(session.getAttribute("type") == "admin"){
         <tr>
             <td><a><%= slresultset.getString(1) %>   <%= slresultset.getString(2) %> <%= slresultset.getString(3) %></a></td>
             <%--<td><button>Remove Location</button></td> --%>
-            <td><form action="DeleteSavedLocation" method="Post"><input type="hidden" name="zipcode" value="<%= slresultset.getString(1) %>"></input><button type="submit" value="Submit">Remove Location via Form</button></td>
+            <td><form id="<%= slresultset.getString(1) %>" action="DeleteSavedLocation" method="Post"><input type="hidden" name="zipcode" value="<%= slresultset.getString(1) %>"></input><button type="submit" value="Submit">Remove Location</button></form></td>
         </tr>  
         <%}
         %>
