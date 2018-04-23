@@ -7,7 +7,6 @@
 <%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<!DOCTYPE html>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -438,7 +437,6 @@
             </div> 
             <%  
             // set default location to savedlocation1
-            Statement defaultStatement = connection.createStatement();
             ResultSet defaultresultset = slStatement.executeQuery("select location1 from savedlocations");
             
             // initialize variable
@@ -456,7 +454,7 @@
             ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
             
             // populate current weather for display found on lefthand side of screen
-            while(displayresultset.next()){ 
+            if(displayresultset.next()){ 
             %>
             <table id="hourly">
                 <tr><td id='savedLoc'><%= displayresultset.getString(1) %></td></tr>
