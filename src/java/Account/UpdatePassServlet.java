@@ -14,7 +14,7 @@ import javax.servlet.*;
 import java.sql.*;
 
 
-public class CreateAccServlet extends HttpServlet {
+public class UpdatePassServlet extends HttpServlet {
     
     private String host;
     private String port;
@@ -35,38 +35,31 @@ public class CreateAccServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         // Request info from html form
-        String email=request.getParameter("email");
         String password=request.getParameter("password");
-        String fname=request.getParameter("fname");
-        String lname=request.getParameter("lname");
-        String zip=request.getParameter("zip");
-        String type="user";
-
+        
+        // Connect to sessions to get email
+        HttpSession session = request.getSession();
+        String email = (String) session.getAttribute("email");
+ 
         // Connect to mysql and verify username password
-
         try {
         Class.forName("com.mysql.jdbc.Driver");
         // loads driver
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
 
-        PreparedStatement ps = c.prepareStatement("insert into login values (?,?,?,?,?,?)");
-        ps.setString(1, email);
-        ps.setString(2, password);
-        ps.setString(3, fname);
-        ps.setString(4, lname);
-        ps.setString(5, zip);
-        ps.setString(6, type);
-        
-        int i=ps.executeUpdate();  
+        PreparedStatement ps = c.prepareStatement("UPDATE login SET password=? WHERE email=?");
+        ps.setString(1, password);
+        ps.setString(2, email);
+
+        int i=ps.executeUpdate();
         if(i>0)  {
             out.print("You are successfully registered...");  
             //response.sendRedirect("index.jsp");
         
             // Email credentials upon success
             // Outbound messages
-            String subject = "Account Created";
-            String content = "Your Weather App username is: " + email + ". Your password is: "
-                    + password + ".";
+            String subject = "Password Updated";
+            String content = "You new password is: " + password + ".";
 
             // Result message displayed on emailresult.jsp page
             String resultMessage = "";
@@ -75,7 +68,7 @@ public class CreateAccServlet extends HttpServlet {
             try {
                 SendEmail.sendEmail(host, port, user, pass, email, subject,
                         content);
-                resultMessage = "The e-mail was sent successfully";
+                resultMessage = "The update was successfully";
             } catch (Exception ex) {
                 ex.printStackTrace();
                 resultMessage = "There were an error: " + ex.getMessage();
@@ -90,7 +83,7 @@ public class CreateAccServlet extends HttpServlet {
         
         }catch (Exception e2) {
             out.println(e2);  
-            response.sendRedirect("createaccount.jsp");
+            response.sendRedirect("profile.jsp");
             }
         out.close(); 
     } 

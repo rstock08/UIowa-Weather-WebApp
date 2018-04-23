@@ -24,20 +24,25 @@ public class LoginServlet extends HttpServlet {
             // Collect parameters from html login form
             String email=request.getParameter("email");
             String password=request.getParameter("password");
+            String type = null;
 
             // Try to connect to DB
             try {
             Class.forName("com.mysql.jdbc.Driver");
             // loads driver
             Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
-            PreparedStatement ps = c.prepareStatement("Select email, password from login where email=? and password=?");
+            PreparedStatement ps = c.prepareStatement("Select email, password, type from login where email=? and password=?");
             ps.setString(1, email);
             ps.setString(2, password);
+            ps.setString(3,type);
+            
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                     HttpSession session = request.getSession();
                     session.setAttribute("email", email);
+                    session.setAttribute("type", type);
+ 
                     response.sendRedirect("index.jsp");
                     return;
             }

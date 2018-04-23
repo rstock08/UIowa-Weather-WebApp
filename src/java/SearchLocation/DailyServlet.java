@@ -4,7 +4,6 @@
  */
 package SearchLocation;
 
-import net.sf.json.*;
 import java.io.*;
 import javax.servlet.http.*;
 import javax.servlet.*;
