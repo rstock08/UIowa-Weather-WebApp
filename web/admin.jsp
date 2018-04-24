@@ -19,19 +19,23 @@ if (session.getAttribute("email") != null) {
     profileSet = "Profile";
     logPage = "logout.jsp";
     logSet = "Logout";
+    //toggleVisibility = "visibile";
 } else {
     logPage = "login.jsp";
     logSet = "Login";
     profilePage = "";
     profileSet = "";
+    //toggleVisibility = "hidden";
     //<script> document.getElementById(""id of button"").disabled = true; </script> 
 }
 if(session.getAttribute("type").equals("admin")){
     adminPage = "admin.jsp";
     adminSet = "Admin";
+    //toggleVisibility = "visibile";
 } else {
     adminPage = "";
     adminSet = "";
+    //toggleVisibility = "hidden";
 }
 %>
 
@@ -49,8 +53,8 @@ if(session.getAttribute("type").equals("admin")){
         <ul>
           <li><a href="index.jsp">Home</a></li>
           <li><a href="location.jsp">Hourly</a></li>
-          <li style="float:right"><a href="<%=adminPage%>"><%=adminSet%></a></li>
-          <li style="float:right"><a class="active" href="<%=profilePage%>"><%=profileSet%></a></li>
+          <li style="float:right"><a class="active" href="<%=adminPage%>"><%=adminSet%></a></li>
+          <li style="float:right"><a href="<%=profilePage%>"><%=profileSet%></a></li>
           <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
           
         </ul>
