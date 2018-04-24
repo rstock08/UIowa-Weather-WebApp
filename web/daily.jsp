@@ -203,7 +203,6 @@ if (session.getAttribute("email") != null) {
             })
             .then(function(data) {
                 document.getElementById("savedLoc").innerHTML = data.location;
-                document.getElementById("day").innerHTML = data.day;
                 document.getElementById("temperatureF").innerHTML = data.temperatureF;
                 document.getElementById("temperatureC").innerHTML = data.temperatureC;
                 document.getElementById("humidity").innerHTML = data.humidity;
@@ -219,53 +218,53 @@ if (session.getAttribute("email") != null) {
                 document.getElementById("wind1").innerHTML = data.wind;
                 document.getElementById("pressure1").innerHTML = data.pressure;
                 
-                document.getElementById("day2").innerHTML = data.day;
-                document.getElementById("temperatureF2").innerHTML = data.temperatureF;
-                document.getElementById("temperatureC2").innerHTML = data.temperatureC;
-                document.getElementById("humidity2").innerHTML = data.humidity;
-                document.getElementById("feelslike2").innerHTML = data.feelslike;
-                document.getElementById("wind2").innerHTML = data.wind;
-                document.getElementById("pressure2").innerHTML = data.pressure;
+                document.getElementById("day2").innerHTML = data.day2;
+                document.getElementById("temperatureF2").innerHTML = data.temperatureF2;
+                document.getElementById("temperatureC2").innerHTML = data.temperatureC2;
+                document.getElementById("humidity2").innerHTML = data.humidity2;
+                document.getElementById("feelslike2").innerHTML = data.feelslike2;
+                document.getElementById("wind2").innerHTML = data.wind2;
+                document.getElementById("pressure2").innerHTML = data.pressure2;
                 
-                document.getElementById("day3").innerHTML = data.day;
-                document.getElementById("temperatureF3").innerHTML = data.temperatureF;
-                document.getElementById("temperatureC3").innerHTML = data.temperatureC;
-                document.getElementById("humidity3").innerHTML = data.humidity;
-                document.getElementById("feelslike3").innerHTML = data.feelslike;
-                document.getElementById("wind3").innerHTML = data.wind;
-                document.getElementById("pressure3").innerHTML = data.pressure;
+                document.getElementById("day3").innerHTML = data.day3;
+                document.getElementById("temperatureF3").innerHTML = data.temperatureF3;
+                document.getElementById("temperatureC3").innerHTML = data.temperatureC3;
+                document.getElementById("humidity3").innerHTML = data.humidity3;
+                document.getElementById("feelslike3").innerHTML = data.feelslike3;
+                document.getElementById("wind3").innerHTML = data.wind3;
+                document.getElementById("pressure3").innerHTML = data.pressure3;
                 
-                document.getElementById("day4").innerHTML = data.day;
-                document.getElementById("temperatureF4").innerHTML = data.temperatureF;
-                document.getElementById("temperatureC4").innerHTML = data.temperatureC;
-                document.getElementById("humidity4").innerHTML = data.humidity;
-                document.getElementById("feelslike4").innerHTML = data.feelslike;
-                document.getElementById("wind4").innerHTML = data.wind;
-                document.getElementById("pressure4").innerHTML = data.pressure;
+                document.getElementById("day4").innerHTML = data.day4;
+                document.getElementById("temperatureF4").innerHTML = data.temperatureF4;
+                document.getElementById("temperatureC4").innerHTML = data.temperatureC4;
+                document.getElementById("humidity4").innerHTML = data.humidity4;
+                document.getElementById("feelslike4").innerHTML = data.feelslike4;
+                document.getElementById("wind4").innerHTML = data.wind4;
+                document.getElementById("pressure4").innerHTML = data.pressure4;
                 
-                document.getElementById("day5").innerHTML = data.day;
-                document.getElementById("temperatureF5").innerHTML = data.temperatureF;
-                document.getElementById("temperatureC5").innerHTML = data.temperatureC;
-                document.getElementById("humidity5").innerHTML = data.humidity;
-                document.getElementById("feelslike5").innerHTML = data.feelslike;
-                document.getElementById("wind5").innerHTML = data.wind;
-                document.getElementById("pressure5").innerHTML = data.pressure;
+                document.getElementById("day5").innerHTML = data.day5;
+                document.getElementById("temperatureF5").innerHTML = data.temperatureF5;
+                document.getElementById("temperatureC5").innerHTML = data.temperatureC5;
+                document.getElementById("humidity5").innerHTML = data.humidity5;
+                document.getElementById("feelslike5").innerHTML = data.feelslike5;
+                document.getElementById("wind5").innerHTML = data.wind5;
+                document.getElementById("pressure5").innerHTML = data.pressure5;
                 
-                document.getElementById("day6").innerHTML = data.day;
-                document.getElementById("temperatureF6").innerHTML = data.temperatureF;
-                document.getElementById("temperatureC6").innerHTML = data.temperatureC;
-                document.getElementById("humidity6").innerHTML = data.humidity;
-                document.getElementById("feelslike6").innerHTML = data.feelslike;
-                document.getElementById("wind6").innerHTML = data.wind;
-                document.getElementById("pressure6").innerHTML = data.pressure;
+                document.getElementById("day6").innerHTML = data.day6;
+                document.getElementById("temperatureF6").innerHTML = data.temperatureF6;
+                document.getElementById("temperatureC6").innerHTML = data.temperatureC6;
+                document.getElementById("humidity6").innerHTML = data.humidity6;
+                document.getElementById("feelslike6").innerHTML = data.feelslike6;
+                document.getElementById("wind6").innerHTML = data.wind6;
+                document.getElementById("pressure6").innerHTML = data.pressure6;
                 
-                document.getElementById("day7").innerHTML = data.day;
-                document.getElementById("temperatureF7").innerHTML = data.temperatureF;
-                document.getElementById("temperatureC7").innerHTML = data.temperatureC;
-                document.getElementById("humidity7").innerHTML = data.humidity;
-                document.getElementById("feelslike7").innerHTML = data.feelslike;
-                document.getElementById("wind7").innerHTML = data.wind;
-                document.getElementById("pressure7").innerHTML = data.pressure;
+                document.getElementById("day7").innerHTML = data.day7;
+                document.getElementById("temperatureF7").innerHTML = data.temperatureF7;
+                document.getElementById("temperatureC7").innerHTML = data.temperatureC7;
+                document.getElementById("humidity7").innerHTML = data.humidity7;
+                document.getElementById("feelslike7").innerHTML = data.feelslike7;
+                document.getElementById("wind7").innerHTML = data.wind7;
+                document.getElementById("pressure7").innerHTML = data.pressure7;
                 
                 console.log(data)
             })
@@ -424,7 +423,7 @@ if (session.getAttribute("email") != null) {
             </tr>
             <%}if(resultset.next()){ %>
             <tr>
-                <td id='day'><%= resultset.getString(1) %></td>
+                <td id='day6'><%= resultset.getString(1) %></td>
                 <td id='temperatureF6'><%= resultset.getString(2) %></td>
                 <td id='temperatureC6'><%= resultset.getString(3) %></td>
                 <td id='humidity6'><%= resultset.getString(4) %></td>
