@@ -60,10 +60,17 @@ if (session.getAttribute("email") != null) {
                 <input type="text" placeholder="Zipcode" name="zipcode" required>
                 <input type="text" placeholder="State" name="state" required>
                 <input type="text" placeholder="City" name="city" required>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Add Location">
              </form>
         </div>
-        <table id="locations">
+          
+        <div class="locations">        
+            <table id="locations">
+            <tr>
+                <th>Location</th>
+                <th>Action</th>
+            </tr></div>
+            <table id="locations">
         <tr>
             <th>Location</th>
             <th>Action</th>
