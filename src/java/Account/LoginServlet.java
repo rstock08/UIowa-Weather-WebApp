@@ -17,41 +17,54 @@ import java.sql.*;
  
 public class LoginServlet extends HttpServlet {
         
-        @Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) 
-                throws ServletException, IOException {
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) 
+            throws ServletException, IOException {
+
+        // Collect parameters from html login form
+        String email=request.getParameter("email");
+        String password=request.getParameter("password");
+
+        // Try to connect to DB
+        try {
+        Class.forName("com.mysql.jdbc.Driver");
+        // loads driver
+        Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
+        PreparedStatement ps = c.prepareStatement("Select email, password, type from login where email=? and password=?");
+        ps.setString(1, email);
+        ps.setString(2, password);
+        String resultMessage = "";
+
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
             
-            // Collect parameters from html login form
-            String email=request.getParameter("email");
-            String password=request.getParameter("password");
-            String type = null;
-
-            // Try to connect to DB
-            try {
-            Class.forName("com.mysql.jdbc.Driver");
-            // loads driver
-            Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
-            PreparedStatement ps = c.prepareStatement("Select email, password from login where email=? and password=?");
-            ps.setString(1, email);
-            ps.setString(2, password);
-            //ps.setString(3,type);
+                String type = rs.getString("type");
             
-            ResultSet rs = ps.executeQuery();
-
-            while (rs.next()) {
-                    HttpSession session = request.getSession();
-                    session.setAttribute("email", email);
-                    //session.setAttribute("type", type);
- 
-                    response.sendRedirect("index.jsp");
-                    return;
-            }
-            response.sendRedirect("error.html");
-            return;
-            } catch (ClassNotFoundException | SQLException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-            }
-	}
-
+                HttpSession session = request.getSession();
+                session.setAttribute("email", email);
+                session.setAttribute("type", type);
+                
+                if (type.equals("admin")){
+                    response.sendRedirect("admin.jsp");
+                } else{
+                    resultMessage = type + email + password;
+                    request.setAttribute("Message", resultMessage);
+                    getServletContext().getRequestDispatcher("/emailresult.jsp").forward(
+                        request, response);
+                    response.sendRedirect("result.jsp");
+                }
+                return;
+        }
+        resultMessage = "Failed Attempt";
+        request.setAttribute("Message", resultMessage);
+                getServletContext().getRequestDispatcher("/emailresult.jsp").forward(
+                        request, response);
+        response.sendRedirect("result.jsp");
+        return;
+        } catch (ClassNotFoundException | SQLException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+        }
+    }
 }

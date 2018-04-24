@@ -25,9 +25,6 @@ if (session.getAttribute("email") != null) {
     profilePage = "";
     profileSet = "";
 }
-if(session.getAttribute("type") == "admin"){
-    
-}
 %>
 
 <html>
@@ -44,14 +41,16 @@ if(session.getAttribute("type") == "admin"){
         <ul>
           <li><a href="index.jsp">Home</a></li>
           <li><a href="location.jsp">Hourly</a></li>
+          <li style="float:right"><a href="<%=adminPage%>"><%=adminSet%></a></li>
           <li style="float:right"><a class="active" href="<%=profilePage%>"><%=profileSet%></a></li>
           <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
+          
         </ul>
 
         <div class="updatepass">
             <form method="post" action="UpdatePassServlet">
                 <input type="password" placeholder="Password" name="password" required>
-                <input type="submit" value="Submit">
+                <input type="submit" value="Update Password">
             </form>
         </div>
         
