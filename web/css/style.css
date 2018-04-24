@@ -70,6 +70,10 @@ header {
     margin:0;
 }
 
+.adminweather{
+    
+}
+
 .locations{
     background: #eceeee;
     border: 2px solid #42464b;
@@ -124,7 +128,7 @@ header {
   width: 298px;
 }
 
-.login .createaccount .forgotpassword .updatepass .addlocation .locations h1 {
+.login .createaccount .forgotpassword .updatepass .addlocation .locations .adminweather h1 {
   background-image: linear-gradient(top, #f1f3f3, #d4dae0);
   border-bottom: 1px solid #a6abaf;
   border-radius: 6px 6px 0 0;
