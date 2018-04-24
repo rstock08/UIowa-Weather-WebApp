@@ -54,7 +54,7 @@ if (session.getAttribute("email") != null) {
         
         <div class="forgotpassword">
             <form method="post" action="ForgotPassServlet">
-                <input type="text" placeholder="email" name="email" required>
+                <input type="text" placeholder="Email" name="email" required>
                 <input type="submit" value="Send Reset">
             </form>
         </div>

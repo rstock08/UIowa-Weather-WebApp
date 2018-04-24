@@ -7,6 +7,31 @@
 <%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+
+<%      
+String logPage, logSet, profilePage, profileSet;
+if (session.getAttribute("email") != null) {
+    if (session.getAttribute("type").equals("admin")){
+        profilePage = "admin.jsp";
+        profileSet = "Admin";
+        logPage = "logout.jsp";
+        logSet = "Logout";
+    } else {
+        profilePage = "profile.jsp";
+        profileSet = "Profile";
+        logPage = "logout.jsp";
+        logSet = "Logout";
+    }
+} else {
+    logPage = "login.jsp";
+    logSet = "Login";
+    profilePage = "";
+    profileSet = "";
+}
+%>
+
+
 <html lang="en">
 <head>
 <style>      
@@ -173,6 +198,9 @@
     <link rel='stylesheet' href='css/style.css'>
 </head>
 <body>
+    
+    
+    
     <script>
         function changeLoc(zipInput){
             fetch('LocationServlet/?zip='+zipInput, {method: 'GET'})
@@ -199,9 +227,11 @@
     </header>
     
     <ul>
-        <li><a href="index.jsp">Home</a></li>
-        <li style="float:right"><a href="account.jsp">Account</a></li>
-        <li style="float:right"><a href="login.jsp">Login</a></li>
+      <li><a href="index.jsp">Home</a></li>
+      <li><a href="location.jsp">Hourly</a></li>
+      <li style="float:right"><a class="active" href="<%=profilePage%>"><%=profileSet%></a></li>
+      <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
+
     </ul>
     
     <div class="topnav">

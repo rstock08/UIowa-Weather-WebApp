@@ -43,7 +43,7 @@ if (session.getAttribute("email") != null) {
           <li style="float:right"><a class="active" href="<%=logPage%>"><%=logSet%></a></li>
         </ul>
         
-        <div class="createaccount">
+        <div class="login">
             <form method="post" action="LoginServlet">
                 <input type="text" placeholder="email" name="email" required>  
                 <input type="password" placeholder="password" name="password" required>

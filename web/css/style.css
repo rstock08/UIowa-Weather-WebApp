@@ -74,7 +74,7 @@ header {
   background: #eceeee;
   border: 2px solid #42464b;
   border-radius: 6px;
-  height: 280px;
+  height: 180px;
   margin: 20px auto 0;
   width: 298px;
 }
@@ -83,7 +83,7 @@ header {
   background: #eceeee;
   border: 2px solid #42464b;
   border-radius: 6px;
-  height: 280px;
+  height: 260px;
   margin: 20px auto 0;
   width: 298px;
 }
@@ -92,7 +92,7 @@ header {
   background: #eceeee;
   border: 2px solid #42464b;
   border-radius: 6px;
-  height: 280px;
+  height: 180px;
   margin: 20px auto 0;
   width: 298px;
 }
@@ -101,7 +101,7 @@ header {
   background: #eceeee;
   border: 2px solid #42464b;
   border-radius: 6px;
-  height: 280px;
+  height: 440px;
   margin: 20px auto 0;
   width: 298px;
 }
@@ -120,6 +120,7 @@ header {
   text-align: center;
   text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
 }
+
 input[type="password"], input[type="text"] {
   border: 1px solid #a1a3a3;
   border-radius: 4px;
