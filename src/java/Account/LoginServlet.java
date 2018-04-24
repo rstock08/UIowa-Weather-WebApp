@@ -48,11 +48,7 @@ public class LoginServlet extends HttpServlet {
                 if (type.equals("admin")){
                     response.sendRedirect("admin.jsp");
                 } else {
-                    resultMessage = type + email + password;
-                    request.setAttribute("Message", resultMessage);
-                    getServletContext().getRequestDispatcher("/emailresult.jsp").forward(
-                        request, response);
-                    response.sendRedirect("result.jsp");
+                    response.sendRedirect("profile.jsp");
                 }
                 return;
         }

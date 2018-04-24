@@ -1,9 +1,4 @@
-<%-- 
-    Document   : profile
-    Created on : Apr 17, 2018, 12:55:39 AM
-    Author     : ReedS
---%>
-
+<%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <!--
@@ -34,6 +29,7 @@ if (session.getAttribute("email") != null) {
 }
 %>
 
+
 <html>
     <head>
         <title>Login Form</title>
@@ -46,7 +42,7 @@ if (session.getAttribute("email") != null) {
         </header>
         
         <ul>
-          <li><a href="index.jsp">Home</a></li>
+          <li><a href="daily.jsp">Daily</a></li>
           <li><a href="location.jsp">Hourly</a></li>
           <li style="float:right"><a class="active" href="<%=profilePage%>"><%=profileSet%></a></li>
           <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
@@ -59,6 +55,47 @@ if (session.getAttribute("email") != null) {
                 <input type="submit" value="Update Password">
             </form>
         </div>
+        <div class="addlocation">
+            <form method="post" action="AddLocationServlet">
+                <input type="text" placeholder="Zipcode" name="zipcode" required>
+                <input type="text" placeholder="State" name="state" required>
+                <input type="text" placeholder="City" name="city" required>
+                <input type="submit" value="Submit">
+             </form>
+        </div>
+        <table id="locations">
+        <tr>
+            <th>Location</th>
+            <th>Action</th>
+        </tr>
+
+<!--        <tr>
+            <td><a>Searched Location</a></td>
+            <td><button>Add Location</button></td>
+        </tr> -->        
+        <%
+        Class.forName("com.mysql.jdbc.Driver");
+        Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
+            
+        // need to specify which user we are getting the saved locations from
+        Statement slStatement = connection.createStatement();
+        ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
+            
+        while(slresultset.next()){
+        %>
+
+        <tr>
+            <td><a><%= slresultset.getString(1) %>   <%= slresultset.getString(2) %> <%= slresultset.getString(3) %></a></td>
+            <%--<td><button>Remove Location</button></td> --%>
+            <td><form id="<%= slresultset.getString(1) %>" action="DeleteSavedLocation" method="Post"><input type="hidden" name="zipcode" value="<%= slresultset.getString(1) %>"></input><button type="submit" value="Submit">Remove Location</button></form></td>
+        </tr>  
+        <%}
+        %>
+    </table>
+    <script>
+        var d = new Date();
+        document.getElementById("todayDate").innerHTML = String(d.getMonth()+1)+"-"+String(d.getDate())+"-"+String(d.getFullYear());
+    </script>
     </body>
 </html>
 
