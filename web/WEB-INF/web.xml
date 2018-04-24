@@ -73,6 +73,6 @@
         <param-value>testing123test!</param-value>
     </context-param>
     <welcome-file-list>
-        <welcome-file>EmailForm.jsp</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

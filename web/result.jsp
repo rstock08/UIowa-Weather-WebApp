@@ -12,10 +12,17 @@
 <%      
 String logPage, logSet, profilePage, profileSet;
 if (session.getAttribute("email") != null) {
-    profilePage = "profile.jsp";
-    profileSet = "Profile";
-    logPage = "logout.jsp";
-    logSet = "Logout";
+    if (session.getAttribute("type").equals("admin")){
+        profilePage = "admin.jsp";
+        profileSet = "Admin";
+        logPage = "logout.jsp";
+        logSet = "Logout";
+    } else {
+        profilePage = "profile.jsp";
+        profileSet = "Profile";
+        logPage = "logout.jsp";
+        logSet = "Logout";
+    }
 } else {
     logPage = "login.jsp";
     logSet = "Login";

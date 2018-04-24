@@ -13,29 +13,24 @@ and open the template in the editor.
 -->
 
 <%      
-String logPage, logSet, profilePage, profileSet, adminPage, adminSet;
+String logPage, logSet, profilePage, profileSet;
 if (session.getAttribute("email") != null) {
-    profilePage = "profile.jsp";
-    profileSet = "Profile";
-    logPage = "logout.jsp";
-    logSet = "Logout";
-    //toggleVisibility = "visibile";
+    if (session.getAttribute("type").equals("admin")){
+        profilePage = "admin.jsp";
+        profileSet = "Admin";
+        logPage = "logout.jsp";
+        logSet = "Logout";
+    } else {
+        profilePage = "profile.jsp";
+        profileSet = "Profile";
+        logPage = "logout.jsp";
+        logSet = "Logout";
+    }
 } else {
     logPage = "login.jsp";
     logSet = "Login";
     profilePage = "";
     profileSet = "";
-    //toggleVisibility = "hidden";
-    //<script> document.getElementById(""id of button"").disabled = true; </script> 
-}
-if(session.getAttribute("type").equals("admin")){
-    adminPage = "admin.jsp";
-    adminSet = "Admin";
-    //toggleVisibility = "visibile";
-} else {
-    adminPage = "";
-    adminSet = "";
-    //toggleVisibility = "hidden";
 }
 %>
 
