@@ -275,7 +275,7 @@ if (session.getAttribute("email") != null) {
     </header>
     
     <ul>
-        <li><a href="daily.jsp">Daily</a></li>
+        <li><a class="active" href="daily.jsp">Daily</a></li>
         <li><a href="location.jsp">Hourly</a></li>
         <li style="float:right"><a href="<%=profilePage%>"><%=profileSet%></a></li>
         <li style="float:right"><a href="<%=logPage%>"><%=logSet%></a></li>
@@ -317,7 +317,7 @@ if (session.getAttribute("email") != null) {
         <div class="grid-item">
         <div class="weather-container">
             <div>
-                <img src="images/weatherthumbnail.png" alt="weather thumbnail" >
+                <img src="images/weatherthumbnail.jpg" alt="weather thumbnail" >
             </div> 
             <%  
             // set default location to savedlocation1
