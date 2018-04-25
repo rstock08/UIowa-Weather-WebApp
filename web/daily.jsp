@@ -295,12 +295,12 @@ if (session.getAttribute("email") != null) {
             
             // need to specify which user we are getting the saved locations from
             Statement slStatement = connection.createStatement();
-            ResultSet slresultset = slStatement.executeQuery("select location1, location2, location3 from account where email='default'");
+            ResultSet slresultset = null; 
             if(session.getAttribute("email") != null){
                 slresultset = slStatement.executeQuery("select location1, location2, location3 from account where email='" + session.getAttribute("email") + "'"); 
             }
             // populate saved locations bar on top of screen
-            while(slresultset.next()){
+            while(slresultset != null && slresultset.next()){ 
             %>
             <div class="dropdown-content">
                 <a onclick="changeDaily('<%= slresultset.getString(1) %>')"><%= slresultset.getString(1) %></a>
