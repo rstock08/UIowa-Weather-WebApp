@@ -293,7 +293,8 @@ if (session.getAttribute("email") != null) {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");   
             
-            // need to specify which user we are getting the saved locations from
+            // pulls saved locations from account table using email
+            // if nobody is logged in no saved locations get displayed            
             Statement slStatement = connection.createStatement();
             ResultSet slresultset = null; 
             if(session.getAttribute("email") != null){
