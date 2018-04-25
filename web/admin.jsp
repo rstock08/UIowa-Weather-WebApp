@@ -53,10 +53,25 @@ if (session.getAttribute("email") != null) {
           
         </ul>
 
-        <div class="updatepass">
+        <div class="adminupdatepass">
             <form method="post" action="UpdatePassServlet">
                 <input type="password" placeholder="Password" name="password" required>
                 <input type="submit" value="Update Password">
+            </form>
+        </div>
+          
+        <div class="adminweather">
+            <form method="post" action="addWeatherServlet">
+                <input type="text" placeholder="City" name="location" required>
+                <input type="text" placeholder="Day Ex: Mon/Tues/Wed..." name="day" required>
+                <input type="text" placeholder="Zipcode" name="zip" required>
+                <input type="text" placeholder="Temperature F" name="temperaturef" required>
+                <input type="text" placeholder="Temperature C" name="temperaturec" required>
+                <input type="text" placeholder="Humidity" name="humidity" required>
+                <input type="text" placeholder="Feels Like Temperature" name="feelslike" required>
+                <input type="text" placeholder="Wind Ex: 5MPH/N" name="wind" required>
+                <input type="text" placeholder="Pressure" name="pressure" required>
+                <input type="submit" value="Add Weather">
             </form>
         </div>
     </body>

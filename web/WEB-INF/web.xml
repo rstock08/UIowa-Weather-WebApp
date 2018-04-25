@@ -24,6 +24,10 @@
         <servlet-name>UpdatePassServlet</servlet-name>
         <servlet-class>Account.UpdatePassServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddWeatherServlet</servlet-name>
+        <servlet-class>Admin.AddWeatherServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
         <url-pattern>/LoginServlet</url-pattern>
@@ -43,6 +47,10 @@
     <servlet-mapping>
         <servlet-name>UpdatePassServlet</servlet-name>
         <url-pattern>/UpdatePassServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddWeatherServlet</servlet-name>
+        <url-pattern>/AddWeatherServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>30</session-timeout>

@@ -71,7 +71,21 @@ header {
 }
 
 .adminweather{
-    
+    background: #eceeee;
+    border: 2px solid #42464b;
+    border-radius: 6px;
+    height: 660px;
+    margin: 20px auto 0;
+    width: 298px;
+}
+
+.adminupdatepass{
+    background: #eceeee;
+    border: 2px solid #42464b;
+    border-radius: 6px;
+    height: 180px;
+    margin: 20px auto 0;
+    width: 298px;
 }
 
 .locations{
@@ -128,13 +142,28 @@ header {
   width: 298px;
 }
 
-.login .createaccount .forgotpassword .updatepass .addlocation .locations .adminweather h1 {
+.login .createaccount .forgotpassword .updatepass .addlocation .locations h1 {
   background-image: linear-gradient(top, #f1f3f3, #d4dae0);
   border-bottom: 1px solid #a6abaf;
   border-radius: 6px 6px 0 0;
   box-sizing: border-box;
   color: #727678;
   display: block;
+  height: 43px;
+  font: 600 14px/1 'Open Sans', sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(0,0,0,0.2), 0 1px 0 #fff;
+}
+
+.adminupdatepass .adminweather h1 {
+  background-image: linear-gradient(top, #f1f3f3, #d4dae0);
+  border-bottom: 1px solid #a6abaf;
+  border-radius: 6px 6px 0 0;
+  box-sizing: border-box;
+  color: #727678;
+  display: inline;
   height: 43px;
   font: 600 14px/1 'Open Sans', sans-serif;
   margin: 0;
