@@ -434,9 +434,10 @@ if (session.getAttribute("email") != null) {
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
-            // need to specify which user we are getting the saved locations from
+            // pulls saved locations from account table using email
+            // if nobody is logged in no saved locations get displayed
             Statement slStatement = connection.createStatement();
-            ResultSet slresultset = null;
+            ResultSet slresultset = null; 
             if(session.getAttribute("email") != null){
                 slresultset = slStatement.executeQuery("select location1, location2, location3 from account where email='" + session.getAttribute("email") + "'"); 
             }
@@ -444,9 +445,6 @@ if (session.getAttribute("email") != null) {
             while(slresultset != null && slresultset.next()){
             %>
             <div class="dropdown-content">
-                <!-- need to make it so when these are clicked the varLocation
-                     variable gets set to the contents of slresultset.getString(x)
-                -->
                 <a onclick="changeLoc('<%= slresultset.getString(1) %>')"><%= slresultset.getString(1) %></a>
                 <a onclick="changeLoc('<%= slresultset.getString(2) %>')"><%= slresultset.getString(2) %></a>
                 <a onclick="changeLoc('<%= slresultset.getString(3) %>')"><%= slresultset.getString(3) %></a>
