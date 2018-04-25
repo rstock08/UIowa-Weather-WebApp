@@ -459,7 +459,7 @@ if (session.getAttribute("email") != null) {
         <div class="grid-item">
         <div class="weather-container">
             <div>
-                <img src="images/weatherthumbnail.jpg" alt="weather thumbnail" >
+                <img width="100%" src="images/weatherthumbnail.jpg" alt="weather thumbnail" >
             </div> 
             <%  
             // set default location to savedlocation1
