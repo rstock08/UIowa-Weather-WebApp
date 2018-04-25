@@ -430,14 +430,16 @@ if (session.getAttribute("email") != null) {
         </div>
         <div class="dropdown">
             <button style="float:right" class="dropbtn">Saved Locations</button> 
-            <%
+            <%   
             Class.forName("com.mysql.jdbc.Driver");
             Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
             // need to specify which user we are getting the saved locations from
             Statement slStatement = connection.createStatement();
-            ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
-            
+            ResultSet slresultset = slStatement.executeQuery("select location1, location2, location3 from account where email='default'");
+            if(session.getAttribute("email") != null){
+                slresultset = slStatement.executeQuery("select location1, location2, location3 from account where email='" + session.getAttribute("email") + "'"); 
+            }
             // populate saved locations bar on top of screen
             while(slresultset.next()){
             %>
@@ -463,7 +465,7 @@ if (session.getAttribute("email") != null) {
             </div> 
             <%  
             // set default location to savedlocation1
-            ResultSet defaultresultset = slStatement.executeQuery("select location1 from savedlocations");
+            ResultSet defaultresultset = slStatement.executeQuery("select location1 from account where email='" + session.getAttribute("email") + "'");
             
             // initialize variable
             String varZip = "'52246'";
