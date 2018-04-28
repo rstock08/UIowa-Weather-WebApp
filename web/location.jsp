@@ -4,10 +4,12 @@
     Author     : tristan
 --%>
 
+<%@page import="java.time.LocalDateTime"%>
 <%@ page import="java.sql.*" %>
+<%@ page import = "java.io.*,java.util.*, javax.servlet.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-
+<!DOCTYPE html>         
+  
 
 <%      
 String logPage, logSet, profilePage, profileSet;
@@ -473,10 +475,20 @@ if (session.getAttribute("email") != null) {
                 varZip = defaultresultset.getString(1);
             }
             
+            // get current hour (0-23) and add 1 to get readable hour
+            int hour = LocalDateTime.now().getHour();
+            hour += 1;
+            // create string for time ex. "1:00AM"
+            String hourAMPM = hour +":00AM";
+            // if time is greater than 12 it is in the afternoon
+            if(hour > 12){
+                hour -= 12;
+                hourAMPM = hour +":00PM";
+            }
+            
             Statement displaystatement = connection.createStatement();
-            // need to introduce a time variable that can be used here to get the current 
             // times weather for the display area
-            String displaycommand = "Select location, temperatureF, temperatureC, humidity, feelslike, wind, pressure from weather where zip="+ varZip +" and time='1:00AM'"; 
+            String displaycommand = "Select location, temperatureF, temperatureC, humidity, feelslike, wind, pressure from weather where zip="+ varZip +" and time='" + hourAMPM + "'"; 
             ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
             
             // populate current weather for display found on lefthand side of screen
@@ -763,18 +775,6 @@ if (session.getAttribute("email") != null) {
     <script>
         var d = new Date();
         document.getElementById("todayDate").innerHTML = String(d.getMonth()+1)+"-"+String(d.getDate())+"-"+String(d.getFullYear());
-    </script>
-    <script>
-        // get current hour (0-23) and add 1 to get readable hour
-        var d2 = new Date();
-        time = d2.getHours() + 1;
-        // create string for time ex. "1:00AM"
-        timeAMPM = String(time)+":00AM";
-        // if time is greater than 12 it is in the afternoon
-        if(time > 12){
-            time = time - 12;
-            AMPM = String(time)+":00PM";
-        }
     </script>
 </body>
 </html>
