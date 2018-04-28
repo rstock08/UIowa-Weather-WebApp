@@ -3,6 +3,8 @@
     Created on : Apr 22, 2018, 3:24:29 PM
     Author     : tristan
 --%>
+<%@page import="java.time.DayOfWeek"%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.TimeZone"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.time.LocalDateTime"%>
@@ -335,34 +337,33 @@ if (session.getAttribute("email") != null) {
                 varZip = defaultresultset.getString(1);
             }
             
-            // create calender
-            Calendar myDate = Calendar.getInstance(TimeZone.getDefault());
-            // get day of the week int from calender
-            int dayOfWeek = myDate.get(Calendar.DAY_OF_WEEK);
-            System.out.println(dayOfWeek);
-            // create default string for day
-            String day = "Tue";
+            // create date object
+            LocalDate myDate =  LocalDate.now();
+            // get day of the week info from date
+            DayOfWeek dayOfWeek =  myDate.getDayOfWeek();
+            // create default string for day in case of error
+            String day = "Mon";
             // assign day string to correct dayOfWeek int
-            if(dayOfWeek == 0){
-                day = "Sun";
-            }
-            if(dayOfWeek == 1){
+            if(dayOfWeek.getValue() == 1){
                 day = "Mon";
             }
-            if(dayOfWeek == 2){
+            if(dayOfWeek.getValue() == 2){
                 day = "Tue";
             }
-            if(dayOfWeek == 3){
+            if(dayOfWeek.getValue() == 3){
                 day = "Wed";
             }
-            if(dayOfWeek == 4){
+            if(dayOfWeek.getValue() == 4){
                 day = "Thu";
             }
-            if(dayOfWeek == 5){
+            if(dayOfWeek.getValue() == 5){
                 day = "Fri";
             }
-            if(dayOfWeek == 6){
+            if(dayOfWeek.getValue() == 6){
                 day = "Sat";
+            }
+            if(dayOfWeek.getValue() == 7){
+                day = "Sun";
             }
             
             
