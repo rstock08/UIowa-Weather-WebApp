@@ -3,6 +3,9 @@
     Created on : Apr 22, 2018, 3:24:29 PM
     Author     : tristan
 --%>
+<%@page import="java.util.TimeZone"%>
+<%@page import="java.util.Calendar"%>
+<%@page import="java.time.LocalDateTime"%>
 <%@ page import="java.sql.*" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
@@ -331,10 +334,42 @@ if (session.getAttribute("email") != null) {
                 // default location
                 varZip = defaultresultset.getString(1);
             }
+            
+            // create calender
+            Calendar myDate = Calendar.getInstance(TimeZone.getDefault());
+            // get day of the week int from calender
+            int dayOfWeek = myDate.get(Calendar.DAY_OF_WEEK);
+            System.out.println(dayOfWeek);
+            // create default string for day
+            String day = "Tue";
+            // assign day string to correct dayOfWeek int
+            if(dayOfWeek == 0){
+                day = "Sun";
+            }
+            if(dayOfWeek == 1){
+                day = "Mon";
+            }
+            if(dayOfWeek == 2){
+                day = "Tue";
+            }
+            if(dayOfWeek == 3){
+                day = "Wed";
+            }
+            if(dayOfWeek == 4){
+                day = "Thu";
+            }
+            if(dayOfWeek == 5){
+                day = "Fri";
+            }
+            if(dayOfWeek == 6){
+                day = "Sat";
+            }
+            
+            
             Statement displaystatement = connection.createStatement();
             // need to introduce a time variable that can be used here to get the current 
             // times weather for the display area
-            String displaycommand = "Select location, temperatureF, temperatureC, humidity, feelslike, wind, pressure from daily where zip="+ varZip +" and day='Mon'"; 
+            String displaycommand = "Select location, temperatureF, temperatureC, humidity, feelslike, wind, pressure from daily where zip="+ varZip +" and day='" + day + "'"; 
             ResultSet displayresultset = displaystatement.executeQuery(displaycommand);
             
             // populate current weather for display found on lefthand side of screen
