@@ -55,15 +55,16 @@ if (session.getAttribute("email") != null) {
                 <input type="submit" value="Update Password">
             </form>
         </div>
-        <div class="addlocation">
+        <!--<div class="addlocation">
             <form method="post" action="AddLocationServlet">
                 <input type="text" placeholder="Zipcode" name="zipcode" required>
                 <input type="text" placeholder="State" name="state" required>
                 <input type="text" placeholder="City" name="city" required>
                 <input type="submit" value="Add Location">
              </form>
-        </div>
-          
+        </div> -->
+        
+          <!--
         <div class="locations">        
             <table id="locations">
             <tr>
@@ -80,7 +81,7 @@ if (session.getAttribute("email") != null) {
             <td><a>Searched Location</a></td>
             <td><button>Add Location</button></td>
         </tr> -->        
-        <%
+        <!--<%
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
@@ -98,7 +99,7 @@ if (session.getAttribute("email") != null) {
         </tr>  
         <%}
         %>
-    </table>
+    </table> -->
     <script>
         var d = new Date();
         document.getElementById("todayDate").innerHTML = String(d.getMonth()+1)+"-"+String(d.getDate())+"-"+String(d.getFullYear());

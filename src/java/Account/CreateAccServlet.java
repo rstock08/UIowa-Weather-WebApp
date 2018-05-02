@@ -49,7 +49,7 @@ public class CreateAccServlet extends HttpServlet {
         // loads driver
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
 
-        PreparedStatement ps = c.prepareStatement("insert into login values (?,?,?,?,?,?)");
+        PreparedStatement ps = c.prepareStatement("INSERT INTO login VALUES (?,?,?,?,?,?)");
         ps.setString(1, email);
         ps.setString(2, password);
         ps.setString(3, fname);

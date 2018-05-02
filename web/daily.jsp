@@ -303,7 +303,7 @@ if (session.getAttribute("email") != null) {
             Statement slStatement = connection.createStatement();
             ResultSet slresultset = null; 
             if(session.getAttribute("email") != null){
-                slresultset = slStatement.executeQuery("select location1, location2, location3 from account where email='" + session.getAttribute("email") + "'"); 
+                slresultset = slStatement.executeQuery("select loc1, loc2, loc3 from login where email='" + session.getAttribute("email") + "'"); 
             }
             // populate saved locations bar on top of screen
             while(slresultset != null && slresultset.next()){ 
@@ -312,7 +312,7 @@ if (session.getAttribute("email") != null) {
                 <a onclick="changeDaily('<%= slresultset.getString(1) %>')"><%= slresultset.getString(1) %></a>
                 <a onclick="changeDaily('<%= slresultset.getString(2) %>')"><%= slresultset.getString(2) %></a>
                 <a onclick="changeDaily('<%= slresultset.getString(3) %>')"><%= slresultset.getString(3) %></a>
-                <a class="active" href="locationmanagement.jsp">EDIT</a>
+                <a class="active" href="profile.jsp">EDIT</a>
             </div>
             <%
             }
@@ -323,11 +323,11 @@ if (session.getAttribute("email") != null) {
         <div class="grid-item">
         <div class="weather-container">
             <div>
-                <img width="100%" src="images/weatherthumbnail.jpg" alt="weather thumbnail" >
+                <img width="100" src="images/weatherthumbnail.jpg" alt="weather thumbnail" >
             </div> 
             <%  
             // set default location to savedlocation1
-            ResultSet defaultresultset = slStatement.executeQuery("select location1 from account where email='" + session.getAttribute("email") + "'");
+            ResultSet defaultresultset = slStatement.executeQuery("select loc1 from login where email='" + session.getAttribute("email") + "'");
             
             // initialize variable
             String varZip = "'52246'";
