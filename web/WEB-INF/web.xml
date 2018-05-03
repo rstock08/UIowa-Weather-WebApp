@@ -24,7 +24,7 @@
         <servlet-name>UpdatePassServlet</servlet-name>
         <servlet-class>Account.UpdatePassServlet</servlet-class>
     </servlet>
-        <servlet>
+    <servlet>
         <servlet-name>AddLocationServlet</servlet-name>
         <servlet-class>Account.AddLocationServlet</servlet-class>
     </servlet>
