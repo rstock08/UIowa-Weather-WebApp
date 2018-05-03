@@ -24,6 +24,22 @@
         <servlet-name>UpdatePassServlet</servlet-name>
         <servlet-class>Account.UpdatePassServlet</servlet-class>
     </servlet>
+        <servlet>
+        <servlet-name>AddLocationServlet</servlet-name>
+        <servlet-class>Account.AddLocationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddLocationServlet</servlet-name>
+        <url-pattern>/AddLocationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>DeleteSavedLocation</servlet-name>
+        <servlet-class>Account.DeleteSavedLocation</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteSavedLocation</servlet-name>
+        <url-pattern>/DeleteSavedLocation</url-pattern>
+    </servlet-mapping>
     <servlet>
         <servlet-name>AddWeatherServlet</servlet-name>
         <servlet-class>Admin.AddWeatherServlet</servlet-class>
