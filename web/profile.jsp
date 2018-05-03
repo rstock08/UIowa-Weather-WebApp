@@ -51,59 +51,84 @@ if (session.getAttribute("email") != null) {
 
         <div class="updatepass">
             <form method="post" action="UpdatePassServlet">
-                <input type="password" placeholder="Password" name="password" required>
+                <input type="password" placeholder="Password" name="password"  required>
                 <input type="submit" value="Update Password">
             </form>
         </div>
-        <!--<div class="addlocation">
-            <form method="post" action="AddLocationServlet">
-                <input type="text" placeholder="Zipcode" name="zipcode" required>
-                <input type="text" placeholder="State" name="state" required>
-                <input type="text" placeholder="City" name="city" required>
-                <input type="submit" value="Add Location">
-             </form>
-        </div> -->
-        
-          <!--
-        <div class="locations">        
-            <table id="locations">
-            <tr>
-                <th>Location</th>
-                <th>Action</th>
-            </tr></div>
-            <table id="locations">
-        <tr>
-            <th>Location</th>
-            <th>Action</th>
-        </tr>
-
-<!--        <tr>
-            <td><a>Searched Location</a></td>
-            <td><button>Add Location</button></td>
-        </tr> -->        
-        <!--<%
+        <%
         Class.forName("com.mysql.jdbc.Driver");
         Connection connection=DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb?","root","");
             
         // need to specify which user we are getting the saved locations from
         Statement slStatement = connection.createStatement();
-        ResultSet slresultset = slStatement.executeQuery("select * from savedlocations");
+        ResultSet slresultset = slStatement.executeQuery("select loc1, loc2, loc3 from login where email='" + session.getAttribute("email") + "'");
             
-        while(slresultset.next()){
+		while(slresultset.next())
+		{
         %>
 
-        <tr>
-            <td><a><%= slresultset.getString(1) %>   <%= slresultset.getString(2) %> <%= slresultset.getString(3) %></a></td>
-            <%--<td><button>Remove Location</button></td> --%>
-            <td><form id="<%= slresultset.getString(1) %>" action="DeleteSavedLocation" method="Post"><input type="hidden" name="zipcode" value="<%= slresultset.getString(1) %>"></input><button type="submit" value="Submit">Remove Location</button></form></td>
-        </tr>  
-        <%}
-        %>
-    </table> -->
+		<div class="addlocation">
+            <form id="addlocationform" method="post" action="AddLocationServlet">
+                <input  type="text" placeholder="Zipcode" name="zipcode" required>
+				<input type = "hidden" name = "email" value ="<%= session.getAttribute("email") %>">
+				<input type = "hidden" name = "loc1" value ="<%= slresultset.getString(1) %>">
+				<input type = "hidden" name = "loc2" value ="<%= slresultset.getString(2) %>">
+				<input type = "hidden" name = "loc3" value ="<%= slresultset.getString(3) %>">
+                <input type="submit" value="Add Location">
+            </form>
+		</div>  
+		
+		<div class="locations">        
+			<table id="locations">
+				<tr>
+					<th>Location</th>
+					<th>Action</th>
+				</tr>
+
+				<tr>
+					<td>
+						<a><%= slresultset.getString(1) %></a>
+					</td>
+					<%--<td><button>Remove Location</button></td> --%>
+					<td>
+						<form id="<%= slresultset.getString(1) %>" action="DeleteSavedLocation" method="Post">
+							<input type="hidden" name="location" value="loc1"></input>
+							<input type="hidden" name="email" value="<%= session.getAttribute("email") %>"></input>
+							<button type="submit" value="Submit">Remove Location</button>
+						</form>
+					</td>
+				</tr>
+				<tr>
+					<td><a><%= slresultset.getString(2) %></a></td>
+					<td>
+						<form id="<%= slresultset.getString(2) %>" action="DeleteSavedLocation" method="Post">
+							<input type="hidden" name="location" value="loc2"></input>
+							<input type="hidden" name="email" value="<%= session.getAttribute("email") %>"></input>
+							<button type="submit" value="Submit">Remove Location</button>
+						</form>
+					</td>
+				</tr>  
+				<tr>
+					<td><a><%= slresultset.getString(3) %></a></td>
+					<td>
+						<form id="<%= slresultset.getString(3) %>" action="DeleteSavedLocation" method="Post">
+							<input type="hidden" name="location" value="loc3"></input>
+							<input type="hidden" name="email" value="<%= session.getAttribute("email") %>"></input>
+							<button type="submit" value="Submit">Remove Location</button>
+						</form>
+					</td>
+				</tr>  
+			</table>  <%--THIS IS NEW--%>
+		</div>  <%--THIS IS NEW--%>
+
+        <%
+		}
+		%>
+       
+    <%--</table> WRONG LOCATION--%>
     <script>
         var d = new Date();
         document.getElementById("todayDate").innerHTML = String(d.getMonth()+1)+"-"+String(d.getDate())+"-"+String(d.getFullYear());
     </script>
     </body>
 </html>
-
