@@ -15,7 +15,9 @@ import java.sql.*;
  * @author Joy
  */
 public class DeleteSavedLocation extends HttpServlet {
-
+        public void init() {
+        ServletContext context = getServletContext();
+        }
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,8 +47,9 @@ public class DeleteSavedLocation extends HttpServlet {
         @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        // Request info from html form
-        String zipcode=request.getParameter("zipcode");
+        HttpSession session = request.getSession();
+        String email = request.getParameter("email");
+        String location=request.getParameter("location");
 
         // Connect to mysql and verify username password
 
@@ -54,18 +57,21 @@ public class DeleteSavedLocation extends HttpServlet {
         Class.forName("com.mysql.jdbc.Driver");
         // loads driver
         Connection c = DriverManager.getConnection("jdbc:mysql://localhost:3306/weatherdb", "root", ""); // gets a new connection
-
-        PreparedStatement ps = c.prepareStatement("delete from savedlocations where zipcode=?");
-        ps.setString(1, zipcode);
+        int i=0;
         
-        int i=ps.executeUpdate();  
+        PreparedStatement ps = c.prepareStatement(("update login set ").concat(location).concat(" = '' where email = ?"));
+        //ps.setString(1, location);
+        ps.setString(1, email);
+        
+        
+        i=ps.executeUpdate();  
         if(i>0)  {
             out.print("Successfully deleted");  
             response.sendRedirect("profile.jsp");
         }
         }catch (Exception e2) {
             out.println(e2);  
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("profile.jsp");
             //change this later
             }
         out.close(); 
