@@ -8,7 +8,7 @@ Create a web application using MySQL that simulates a weather forecasting websit
    - JAF (v1.1.1)
    - Connector/J (v5.1.46)
 
-<b>Technologies:</b><br>
+<b>Technologies:</b>
    - Java
       - Java Servlets
       - JSP
