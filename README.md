@@ -1,4 +1,4 @@
-# WeatherWebApplication
+# Weather Web Application (SAAS)
 Database Systems weather application. Uses Java (Servlets), HTML, CSS, Javascript and MySQL.
 
 Objective:
